@@ -1,0 +1,2474 @@
+{
+  "Uuid": "d5ebdd6c-5cd9-4904-8769-c317e3d68232",
+  "IsCustomNode": false,
+  "Description": "AA CWD Model Checker - rules defined in Dynamo -> XLSX report",
+  "Name": "AA_ModelChecker_Single",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "DesignScript.Builtin.Dictionary": {
+        "Key": "DesignScript.Builtin.Dictionary",
+        "Value": "DesignScriptBuiltin.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "4bb12beb11a349f8b45b36435ba83580",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6e866bbcf1464127bec12d418a240d49",
+          "Name": "",
+          "Description": "options",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== GLOBAL OPTIONS =====\noptions = {\n    \"ReportTitle\": \"AAHK CWD Model Checker Rules\",\n    \"Author\": \"Gavin\",\n    \"MissingParameterCountsAsFail\": true,  // HasNoValue: element without the parameter = issue\n    \"FamilyNameLoadableOnly\": false,       // true = Family Name filters skip system families\n    \"ListPhaseElements\": true,             // list every element on the Phase sheet\n    \"ShowDisabledChecks\": true,            // disabled rules shown as SKIPPED\n    \"OpenWhenDone\": true,                  // open the xlsx after export\n    \"MaxIdsInCell\": 3000                   // max IDs in the 'All IDs' cell\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.Directory, CoreNodeModels",
+      "Id": "ee255fbb0851497f9f2881b0fe013164",
+      "NodeType": "ExtensionNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "80cb533e427d4b06b25a9f153f4bcc79",
+          "Name": "",
+          "Description": "Directory Path",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows you to select a directory on the system and returns its path",
+      "HintPath": "D:\\Users\\LI_Y1\\Downloads",
+      "InputValue": "D:\\Users\\LI_Y1\\Downloads"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "5df7aed775d843e3b46457d859c27bfd",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "df675e44d142453f8c3431487eafc3fc",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "d3dafb3b985043ff9b730903d081a601",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "4e0e7fccd0ef4eeb8ff1b77903437cb1",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fcdb37606182449cba3ec99ec32668de",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== NEW RULE TEMPLATE (copy this node + a Boolean, wire into All Rules) =====\n// Filters: [Source, Property, Condition, Value, Operator(opt \"And\"/\"Or\"), CaseInsensitive(opt)]\n//   Source   : \"Parameter\" | \"Family\" | \"Type\" | \"Category\" | \"Class\"\n//   Condition: HasValue, HasNoValue, Equal, NotEqual, Contains, DoesNotContain,\n//              BeginsWith, DoesNotBeginWith, EndsWith, DoesNotEndWith,\n//              MatchesRegex, DoesNotMatchRegex, GreaterThan, LessThan, ...\n// Categories: \"OST_Walls\" or display name \"Walls\"\n// Mode: \"Auto\" | \"Compliance\" | \"Zero\" | \"Info\"   ElementType: \"Instance\" | \"Type\" | \"Both\"\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"My Section\",\n    \"Name\":        \"My New Check\",\n    \"Description\": \"Describe the check\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [\"OST_Doors\", \"OST_Windows\"],\n    \"Filters\":     [\n                  [\"Parameter\", \"Mark\", \"HasNoValue\", \"\"]\n                 ]\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "940c81ef744c4b98a16f830852234588",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0924aeb3d14a480da4a59de67e41cad2",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "6615629475fb4582be93c65079106b33",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "6f7ab87c3cc54974bd5ad96af6fb6410",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "05a65d1105c24675bae87ed8621f4adb",
+          "Name": "",
+          "Description": "params",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ea2879731fc74c47bd49f548d5eae422",
+          "Name": "",
+          "Description": "cats",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "adb08f526b08402dac2099270bfee914",
+          "Name": "",
+          "Description": "rules",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== CAT Code + Asset / TS Parameters (batch) =====\n// One rule per parameter: elements with an empty / missing parameter are listed as issues\n// Edit the params list to add or remove parameters. Output 'rules' -> All Rules\ndef mkRule(p : string, cats : var[]..[], en : bool)\n{\n    return {\n        \"Heading\":     \"Elements Checker\",\n        \"Section\":     \"Parameter Input\",\n        \"Name\":        p,\n        \"Description\": \"To check whether all elements have \" + p + \" input\",\n        \"Type\":        \"Custom\",\n        \"Enabled\":     en,\n        \"Required\":    false,\n        \"Mode\":        \"Auto\",\n        \"ElementType\": \"Instance\",\n        \"Categories\":  cats,\n        \"Filters\":     [[\"Parameter\", p, \"HasNoValue\", \"\"]]\n    };\n}\n\nparams = [\n    \"CAT Code\", \"NQAA\", \"TS_ASS\", \"TS_ASS_L1\", \"TS_ASS_L2\",\n    \"TS_ASS_L3\", \"TS_ASS_L4\", \"TS_DWN\", \"TS_FDES\", \"TS_FFA\",\n    \"TS_FIN\", \"TS_FLC\", \"TS_ICWO\", \"TS_INS\", \"TS_IWC\",\n    \"TS_LOC\", \"TS_LOC_L1\", \"TS_LOC_L2\", \"TS_LOC_L3\", \"TS_LOC_L4\",\n    \"TS_MFG\", \"TS_MMN\", \"TS_MSN\", \"TS_QTY\", \"TS_SRN\",\n    \"TS_ULF\", \"TS_UOM\", \"TS_WED\"\n];\n\ncats = [\n    \"OST_Casework\", \"OST_Ceilings\", \"OST_Columns\",\n    \"OST_CurtainWallPanels\", \"OST_CurtainWallMullions\", \"OST_Doors\",\n    \"OST_ElectricalEquipment\", \"OST_ElectricalFixtures\", \"OST_Floors\",\n    \"OST_Furniture\", \"OST_GenericModel\", \"OST_LightingFixtures\",\n    \"OST_Mass\", \"OST_MechanicalEquipment\", \"OST_Parking\",\n    \"OST_Parts\", \"OST_Planting\", \"OST_PlumbingFixtures\",\n    \"OST_StairsRailing\", \"OST_Ramps\", \"OST_Roads\",\n    \"OST_Roofs\", \"OST_Site\", \"OST_SpecialityEquipment\",\n    \"OST_Stairs\", \"OST_StructuralColumns\", \"OST_StructConnections\",\n    \"OST_StructuralFoundation\", \"OST_StructuralFraming\", \"OST_Rebar\",\n    \"OST_StructuralStiffener\", \"OST_Topography\", \"OST_Walls\",\n    \"OST_Windows\", \"OST_ShaftOpening\", \"OST_StructuralTruss\",\n    \"OST_DuctTerminal\", \"OST_CableTrayFitting\", \"OST_CableTray\",\n    \"OST_CommunicationDevices\", \"OST_ConduitFitting\", \"OST_ConduitRun\",\n    \"OST_Conduit\", \"OST_DataDevices\", \"OST_DuctAccessory\",\n    \"OST_DuctFitting\", \"OST_DuctInsulations\", \"OST_PlaceHolderDucts\",\n    \"OST_DuctCurves\", \"OST_FireAlarmDevices\", \"OST_FlexDuctCurves\",\n    \"OST_FlexPipeCurves\", \"OST_LightingDevices\", \"OST_PipeAccessory\",\n    \"OST_PipeFitting\", \"OST_PipeInsulations\", \"OST_PlaceHolderPipes\",\n    \"OST_PipeCurves\", \"OST_SecurityDevices\", \"OST_Sprinklers\",\n    \"OST_TelephoneDevices\"\n];\n\nrules = mkRule(params, cats, enabled);"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "09fd61746cae4ee1ba122a383ace3b74",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c3be06a30c854e6293205e107d8ca880",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "523ec478a9d044dd8ce719f9bf14e16a",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "98c76b249d71473f90169e87747f4964",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "beeb45b7c0394fb2a544d75d0520ae1f",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Room List =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Family\",\n    \"Name\":        \"Room List\",\n    \"Description\": \"List the rooms in the model\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    true,\n    \"Mode\":        \"Auto\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [\n                  \"OST_Rooms\"\n                 ],\n    \"Filters\":     []\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "975406ed0fe5497a82b2ca50c4ea9974",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6207aa6f289040ac984064bdd2236d0b",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "9524507457354beabdada708ba114d38",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "3a0853f6dc7641b0a9ed789c35d0111d",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "56f27a27731841fcb18f8c9bcd539273",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Generic Model =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Family\",\n    \"Name\":        \"Generic Model\",\n    \"Description\": \"Check and list all generic models\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [\n                  \"OST_GenericModel\"\n                 ],\n    \"Filters\":     []\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "59f608fb61a34f1c9c1d5df071e3421a",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5b5ece8935f940368b752e919b6336b1",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "d3aed6c446dc42009590b0d251253a4e",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "058cf0d5164b48bea82781d1953b9fcc",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a3ff19fd560c4f5fb9ab87f54c6f9df6",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Family Name =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Family\",\n    \"Name\":        \"Family Name\",\n    \"Description\": \"To check whether all family names have started with 'AA-'\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [\n                  \"OST_Casework\", \"OST_Ceilings\", \"OST_Columns\",\n                  \"OST_CurtainWallPanels\", \"OST_CurtaSystem\", \"OST_CurtainWallMullions\",\n                  \"OST_Doors\", \"OST_ElectricalEquipment\", \"OST_ElectricalFixtures\",\n                  \"OST_Floors\", \"OST_Furniture\", \"OST_GenericModel\",\n                  \"OST_LightingFixtures\", \"OST_MechanicalEquipment\", \"OST_Parking\",\n                  \"OST_Parts\", \"OST_Planting\", \"OST_PlumbingFixtures\",\n                  \"OST_StairsRailing\", \"OST_Ramps\", \"OST_Roads\",\n                  \"OST_Roofs\", \"OST_Site\", \"OST_SpecialityEquipment\",\n                  \"OST_Stairs\", \"OST_StructuralFramingSystem\", \"OST_StructuralColumns\",\n                  \"OST_StructConnections\", \"OST_StructuralFoundation\", \"OST_StructuralFraming\",\n                  \"OST_Rebar\", \"OST_StructuralStiffener\", \"OST_Topography\",\n                  \"OST_Walls\", \"OST_Windows\"\n                 ],\n    \"Filters\":     [\n                  [\"Family\", \"Name\", \"DoesNotContain\", \"AA-\"]\n                 ]\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "3b2fce1c05a74eedb8420555005ee4ec",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2975533e0a5d48ba8a1eec73e7a40c2f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "5b8ce0d9696b4c16aa18f90aeeccd9b5",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "06e97713c05e4c28bdd82b782a74b0d0",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ca48c077d8e549bc95be0210217bd62e",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== In-Place Families =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Family\",\n    \"Name\":        \"In-Place Families\",\n    \"Description\": \"Check if any In-Place Families exist in the model.\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Zero\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [],\n    \"Filters\":     [\n                  [\"Family\", \"Is In Place\", \"Equal\", \"True\"]\n                 ]\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "945b1ddc36dc4e409ff8882b07bf4084",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a660aabbff4c420e92ae638f2d04c466",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "5518f8b0ac224f01a87d11d9f9ee8486",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "9e732357e1314dfcad47119770410717",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fe67ad85d4ed4b0f8c7810c566118d57",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Mass Elements =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Family\",\n    \"Name\":        \"Mass Elements\",\n    \"Description\": \"Check if any Mass Elements have been placed in the model.\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Zero\",\n    \"ElementType\": \"Instance\",\n    \"Categories\":  [\n                  \"OST_Mass\"\n                 ],\n    \"Filters\":     []\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "cb7394f9644f40ecb5db809a1fdbe38d",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c161032d4dc143cfa9c6fe5d4c47cb42",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "1ac69e98a81546f5a04247935a6f812b",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "8ca38270792642e6a5bef66bacc8f027",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "df082ae757b7431aa5ce23c772eb2a71",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Phase Elements =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Elements Checker\",\n    \"Section\":     \"Phasing\",\n    \"Name\":        \"Phase Elements\",\n    \"Description\": \"Will list the number of elements created on each phase of the project.\",\n    \"Type\":        \"PhaseElements\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "380cda7ea68f4b1fb41078a3af2c66ba",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "11edcded84fb433fa7f2151562d39150",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "ef62fa0430d8444f97d1547a672025e9",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "4ed372f98c3541f2bcb40d79eeb1361a",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2a3cd64bb56a4a24931207161ce5d0fb",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Views With Hidden Model Elements =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"<--Unused-->\",\n    \"Section\":     \"<--Unused-->\",\n    \"Name\":        \"Views With Hidden Model Elements\",\n    \"Description\": \"Lists all views in a Revit model that have permanently hidden model elements and the total number of hidden elements.\",\n    \"Type\":        \"ViewsWithHiddenElements\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "ee9427169dd14efcbffbc9f00a7e28a9",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "301e5337cb3e44aa84b4851f61f26518",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "56b92ac3b3774c6ab7bdfa9bce9a7472",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "fbc214631bf74cbfa10073d39b696922",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "318201a9cc04418798049b95d36e64cc",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Largest Families =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"<--Unused-->\",\n    \"Section\":     \"<--Unused-->\",\n    \"Name\":        \"Largest Families\",\n    \"Description\": \"Will report the families in the project ordered by file size.\",\n    \"Type\":        \"TenLargestFamilies\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "eb8dfacf3f754ad3a40f17b3a7b5db6c",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "66eee72f31b544aba742892c2c8107b2",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "b6553ce20c7e4f9c981e11743249fd87",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "bdebd4bd40ae454f975e2168f7efdc15",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "852acc6ca1314b33aeb877b1fa9b8816",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== File Size =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"<--Unused-->\",\n    \"Section\":     \"<--Unused-->\",\n    \"Name\":        \"File Size\",\n    \"Description\": \"Reports the file size of a Revit model in MB (megabytes).\",\n    \"Type\":        \"FileSize\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "3ac2fca0463f46c0add4edae84e62864",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3ddf090ea1e04fcba47232af443c8ae5",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": false
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "63eee1b1e216417bbda39a0650effd49",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "3a71bd213c4a4ccabdc57c4c64ba44f3",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7a664e50642c40cfb8634376a00d2b35",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Link Type =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"<--Unused-->\",\n    \"Section\":     \"<--Unused-->\",\n    \"Name\":        \"Link Type\",\n    \"Description\": \"\",\n    \"Type\":        \"Custom\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Zero\",\n    \"ElementType\": \"Both\",\n    \"Categories\":  [],\n    \"Filters\":     [\n                  [\"Parameter\", \"Path Type\", \"Equal\", \"Relative\"]\n                 ]\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "368f592e6607409fb989272045f650c9",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6e916585af7a40c7a08dddd9a215d340",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "37150e3c5c1649a983574c3fdd3b1cc6",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "8bb5ecd764bc44b98d7ad5be81e14513",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "627fa30f3a88450184edf17ef4ea2a11",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Project Coordinates =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Model File Checker\",\n    \"Section\":     \"Model Setting\",\n    \"Name\":        \"Project Coordinates\",\n    \"Description\": \"Will report the coordinates of the survey and project base points, elevation, and true north.\",\n    \"Type\":        \"ProjectCoordinates\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "6f25b411d3a04bf28a9effd552c1751d",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d2f335e00f5c40278a273a32d73bc6c8",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "7d19623b2df5462485cd59a8bf88e40d",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "527ef34299574e7bb827cdd85ce020bf",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1ac1d45e8501482f92f50200157cfc1e",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Project Information =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Model File Checker\",\n    \"Section\":     \"Model Setting\",\n    \"Name\":        \"Project Information\",\n    \"Description\": \"Lists all parameters and values attached to Project Information for a project except those associated with Revit Extensions (starting with 'Extensions').\",\n    \"Type\":        \"ProjectInformation\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "51671c29ea3d42ffbb0cddc48ac97fb5",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ccb21d460f8943f0aa09c72fb92f855f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "25a61694c5464377a7bf00efffbf5652",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "f298d20166c34c5d95f828c33432ac6c",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9eb6589a1b504f19a1253d605d90f4f6",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Linked CAD =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Linked CAD\",\n    \"Description\": \"Will report a list of linked CAD files in the model.\",\n    \"Type\":        \"LinkedCad\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "8fe5248d7dc949f995662c7798b7c47c",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "21e5beae99ab492daceb08b753284100",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "ed579ff096704c8d8df8e0160fd627d3",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "3d4379e5fac3442ca6cbebfd2695b150",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4e315d464c2d4751bdab84c394f61875",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Link Method =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Link Method\",\n    \"Description\": \"Will report the link method (overlay vs. attach) for each link in the model.\",\n    \"Type\":        \"LinkMethod\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "48d77383d6664c91bf532a7c823bb881",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fa3ab4a35c3c462790a95f7155225d8e",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "53c26ccb9e3844f0bc451cad38269908",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "4c8140c29f2d4bfabcf57404e0f05b7f",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "da90ae59a6f9479097b6ee79369b3dac",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Raster Images =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Raster Images\",\n    \"Description\": \"Lists all raster images in a Revit model.\",\n    \"Type\":        \"RasterImages\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "0cb45c7d383c4bb09187508c5a998633",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d11234cff1e64514be73ce7d6cdb0a16",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "34f1f7a215f3462eb71bf7ac1270f507",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "ad99ed7bb80b43779fd51340a291dae9",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0adc3dc5973542279192c271c35ed635",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Unused Elements =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Unused Elements\",\n    \"Description\": \"Reports the number of elements that can be purged from a Revit model.\",\n    \"Type\":        \"UnusedElements\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "8ea90cf5b19040c588b21f53845470cd",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5e9db72a7f86499aa2960fb89eb93b4f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "40bf2e279c67494bb14f5d63916f0867",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "3066530c96ab4c6fa98c9c2ec1f57952",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "597b2b946ed84228a2486b5c2e52aabc",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Imported SKP =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Imported SKP\",\n    \"Description\": \"Will report the number of imported SKP files.\",\n    \"Type\":        \"ImportedSkp\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "b65939e38fab447587fb0235b0d4f065",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0c4cccf58d374dee85e12177bbb2a660",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "558372a45d674357bb59fea48c99ad0b",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "6173de64ca3e48f1b75c70f2aebb087b",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "51ea431c7caa4e95aec4648f9d077643",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Worksets =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Worksets\",\n    \"Description\": \"Lists all user worksets for a Revit model or reports '*Not Workshared*' if worksharing is not enabled.  Also optionally lists the number of instances in each workset.\",\n    \"Type\":        \"Worksets\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "cab3543f7ea849aea75d6bf07e281cbb",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "956a7c8e8fdc43f8a7527fbef06efd03",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "3b23a9bad5ef4b17a74e176fdecd03db",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "8b4a6024a030467ca4a1f39ab3abd67c",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "046aaf56977643598136328f5bddd2d8",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Design Options =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Unpurged Elements and References\",\n    \"Name\":        \"Design Options\",\n    \"Description\": \"Lists all Design Options in a Revit model.  Also optionally lists the number of instances in each design option.\",\n    \"Type\":        \"DesignOptions\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "Id": "6b6551b1c800449397516d8e20175138",
+      "NodeType": "BooleanInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fea6a8ec06394a9891a22a035046d7e5",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Enables selection between True and False",
+      "InputValue": true
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "3ca6c1691f464fada1938b7a2c35e35a",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [
+        {
+          "Id": "34512f313f62494c8db9ffecb6ae1799",
+          "Name": "enabled",
+          "Description": "enabled",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e16f1dbb710649b8be8d1dc00befe994",
+          "Name": "",
+          "Description": "rule",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "// ===== Warning Count =====\n// Enabled is driven by the Boolean toggle on the left\nrule = {\n    \"Heading\":     \"Housekeeping\",\n    \"Section\":     \"Warning\",\n    \"Name\":        \"Warning Count\",\n    \"Description\": \"Reports all warnings in a Revit model.\",\n    \"Type\":        \"WarningCount\",\n    \"Enabled\":     enabled,\n    \"Required\":    false,\n    \"Mode\":        \"Auto\"\n};"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "Id": "65fd4a3427fd4e8c8a2c61064f9b22d7",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "f9781a7841814c2582e96fd1b6d31fce",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "073f95783cde4e3eb224d0ad377bd45d",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "12b20211f299477fa3c2fdcdc4eed4d6",
+          "Name": "item2",
+          "Description": "Item Index #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7e90b6ba62f74f30ba7e210374935158",
+          "Name": "item3",
+          "Description": "Item Index #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "869b4f8078024498a1fcef22e5203980",
+          "Name": "item4",
+          "Description": "Item Index #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2a0bb451f5484d73b44ebbdc785464d9",
+          "Name": "item5",
+          "Description": "Item Index #5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "524d567b8be34732aa2191cb20fff8d1",
+          "Name": "item6",
+          "Description": "Item Index #6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ec7182ec46544f47bfdba169eddbf4e8",
+          "Name": "item7",
+          "Description": "Item Index #7",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "aaf7a176e00241349e708c856cd0ac17",
+          "Name": "item8",
+          "Description": "Item Index #8",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a5dc53a9901a4fc9928f3b8a699e834f",
+          "Name": "item9",
+          "Description": "Item Index #9",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a01984dcf85143c3b99a784bb2f9d109",
+          "Name": "item10",
+          "Description": "Item Index #10",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2a89a030de9e4c218f467f05ef368ecb",
+          "Name": "item11",
+          "Description": "Item Index #11",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d7eaa0d60bf3469891fcaf48bb4c7287",
+          "Name": "item12",
+          "Description": "Item Index #12",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b43de43c81924d779f5a3d3d1c7cd500",
+          "Name": "item13",
+          "Description": "Item Index #13",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1422be5728d542579030082b5225ca94",
+          "Name": "item14",
+          "Description": "Item Index #14",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1f436ee5944c4a24b9a407e6c32727e5",
+          "Name": "item15",
+          "Description": "Item Index #15",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f337397eddd847c0a161d6fabe08b56b",
+          "Name": "item16",
+          "Description": "Item Index #16",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d4362fbde3d0499fa280eb62f292594e",
+          "Name": "item17",
+          "Description": "Item Index #17",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7fa900fbc6a444de95faba78268da5c0",
+          "Name": "item18",
+          "Description": "Item Index #18",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "65b802bcfc134655a2e24c22ee508a9e",
+          "Name": "item19",
+          "Description": "Item Index #19",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "53d47b43991443308c9a530eb6e05132",
+          "Name": "item20",
+          "Description": "Item Index #20",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cbc78a6f8fb64364862ea84f650d1264",
+          "Name": "list",
+          "Description": "A list (type: var[]..[])",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list from the given inputs"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "# -*- coding: utf-8 -*-\n\"\"\"\nAA CWD Model Checker for Dynamo (Revit)  -  CPython3 / PythonNet3   [Rules-in-Dynamo edition]\n-------------------------------------------------------------------------------------------\nRules are defined directly in the Dynamo graph (Code Blocks) instead of a checkset XML.\nWrites an .xlsx:\n  * \"Summary\"        : completion %, status of every check, completion by category\n  * one sheet / check: related elements with Element ID / Unique ID (GUID) / IFC GUID\n  * \"Rule Settings\"  : the exact rules used for this run (audit trail)\n\nInputs\n  IN[0] : rules   - list (can be nested) of rule dictionaries from the Code Blocks\n  IN[1] : output folder or full .xlsx path  (optional)\n  IN[2] : global options dictionary         (optional)\nOutput\n  OUT   : [xlsx path, summary table, rule validation messages]\n\nRULE DICTIONARY KEYS\n  \"Name\" (required), \"Heading\", \"Section\", \"Description\",\n  \"Type\"        : \"Custom\" or prebuilt (PhaseElements, ProjectCoordinates, ProjectInformation,\n                  LinkedCad, LinkMethod, RasterImages, UnusedElements, ImportedSkp, Worksets,\n                  DesignOptions, WarningCount, ViewsWithHiddenElements, FileSize, TenLargestFamilies)\n  \"Enabled\"     : true / false\n  \"Required\"    : true / false  (info check FAILs when nothing found)\n  \"Mode\"        : \"Auto\" | \"Compliance\" | \"Zero\" | \"Info\"\n  \"Categories\"  : list of \"OST_Walls\" / \"Walls\" / Dynamo Category objects\n  \"ElementType\" : \"Instance\" | \"Type\" | \"Both\"\n  \"Filters\"     : [[Source, Property, Condition, Value, Operator(opt), CaseInsensitive(opt)], ...]\n                  Source: Parameter | Family | Type | Category | Class\n                  Condition: HasValue, HasNoValue, Exists, DoesNotExist, Equal, NotEqual, Contains,\n                  DoesNotContain, BeginsWith, DoesNotBeginWith, EndsWith, DoesNotEndWith,\n                  MatchesRegex, DoesNotMatchRegex, GreaterThan(OrEqual), LessThan(OrEqual)\n                  A filter MATCH = the element is reported as an issue / found item.\n\"\"\"\nimport clr\nimport os\nimport re\nimport datetime\nimport zipfile\nimport traceback\n\nclr.AddReference('RevitAPI')\nimport Autodesk.Revit.DB as DB\nclr.AddReference('RevitServices')\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\nclr.AddReference('System')\nimport System\nfrom System.Collections.Generic import List, HashSet\n\ndoc = DocumentManager.Instance.CurrentDBDocument\n\n# =====================================================================\n# GLOBAL OPTIONS  (defaults - overridden by the \"Global Options\" node, IN[2])\n# =====================================================================\nREPORT_TITLE = \"AAHK CWD Model Checker Rules\"\nREPORT_AUTHOR = \"\"\nMISSING_PARAMETER_COUNTS_AS_FAIL = True\nFAMILY_NAME_LOADABLE_ONLY = False\nLIST_PHASE_ELEMENTS = True\nSHOW_DISABLED_CHECKS = True\nOPEN_WHEN_DONE = True\nMAX_IDS_IN_CELL = 3000\n\nOPTION_KEYS = {\n    \"reporttitle\": \"REPORT_TITLE\",\n    \"author\": \"REPORT_AUTHOR\",\n    \"missingparametercountsasfail\": \"MISSING_PARAMETER_COUNTS_AS_FAIL\",\n    \"familynameloadableonly\": \"FAMILY_NAME_LOADABLE_ONLY\",\n    \"listphaseelements\": \"LIST_PHASE_ELEMENTS\",\n    \"showdisabledchecks\": \"SHOW_DISABLED_CHECKS\",\n    \"openwhendone\": \"OPEN_WHEN_DONE\",\n    \"maxidsincell\": \"MAX_IDS_IN_CELL\",\n}\n\n# =====================================================================\n# GENERIC HELPERS\n# =====================================================================\nFT_TO_MM = 304.8\nSQFT_TO_SQM = 0.09290304\n\n\ndef idval(eid):\n    try:\n        return int(eid.Value)            # Revit 2024+\n    except Exception:\n        try:\n            return int(eid.IntegerValue)  # Revit <= 2023\n        except Exception:\n            return -1\n\n\ndef safe(func, default=\"\"):\n    try:\n        v = func()\n        return default if v is None else v\n    except Exception:\n        return default\n\n\ndef bip(name):\n    return getattr(DB.BuiltInParameter, name, None)\n\n\ndef elem_name(e):\n    if e is None:\n        return \"\"\n    try:\n        n = e.Name\n        if n is not None:\n            return n\n    except Exception:\n        pass\n    try:\n        return DB.Element.Name.GetValue(e)\n    except Exception:\n        return \"\"\n\n\ndef param_str(p):\n    if p is None:\n        return None\n    try:\n        st = p.StorageType\n        if st == DB.StorageType.String:\n            return p.AsString()\n        v = p.AsValueString()\n        if v is not None:\n            return v\n        if st == DB.StorageType.Integer:\n            return str(p.AsInteger())\n        if st == DB.StorageType.Double:\n            return str(p.AsDouble())\n        if st == DB.StorageType.ElementId:\n            i = idval(p.AsElementId())\n            return \"\" if i < 0 else str(i)\n    except Exception:\n        return None\n    return None\n\n\n_type_cache = {}\n\n\ndef get_type(e):\n    try:\n        if isinstance(e, DB.ElementType):\n            return None\n        tid = e.GetTypeId()\n        k = idval(tid)\n        if k <= 0:\n            return None\n        if k not in _type_cache:\n            _type_cache[k] = doc.GetElement(tid)\n        return _type_cache[k]\n    except Exception:\n        return None\n\n\ndef param_lookup(e, name):\n    \"\"\"returns (exists, first non-empty value) looking at instance then type\"\"\"\n    exists = False\n    first = None\n    targets = [e]\n    t = get_type(e)\n    if t is not None:\n        targets.append(t)\n    for el in targets:\n        p = safe(lambda: el.LookupParameter(name), None)\n        if p is None:\n            continue\n        exists = True\n        v = param_str(p)\n        if v is not None and str(v).strip() != \"\":\n            return True, v\n        if first is None:\n            first = v\n    return exists, first\n\n\ndef family_info(e):\n    \"\"\"(family name, is in place, is loadable)\"\"\"\n    try:\n        if isinstance(e, DB.FamilyInstance):\n            f = e.Symbol.Family\n            return f.Name, bool(f.IsInPlace), True\n        t = e if isinstance(e, DB.ElementType) else get_type(e)\n        if isinstance(t, DB.FamilySymbol):\n            f = t.Family\n            return f.Name, bool(f.IsInPlace), True\n        if t is not None:\n            return safe(lambda: t.FamilyName), False, False\n    except Exception:\n        pass\n    return \"\", False, False\n\n\n_name_cache = {}\n\n\ndef name_of(eid):\n    k = idval(eid)\n    if k <= 0:\n        return \"\"\n    if k not in _name_cache:\n        _name_cache[k] = elem_name(doc.GetElement(eid))\n    return _name_cache[k]\n\n\nLEVEL_BIPS = [b for b in [bip(n) for n in (\n    \"FAMILY_LEVEL_PARAM\", \"INSTANCE_REFERENCE_LEVEL_PARAM\", \"SCHEDULE_LEVEL_PARAM\",\n    \"RBS_START_LEVEL_PARAM\", \"STAIRS_BASE_LEVEL_PARAM\", \"WALL_BASE_CONSTRAINT\",\n    \"LEVEL_PARAM\", \"ROOF_BASE_LEVEL_PARAM\", \"FAMILY_BASE_LEVEL_PARAM\")] if b is not None]\n\n\ndef level_name(e):\n    lid = safe(lambda: e.LevelId, None)\n    if lid is not None and idval(lid) > 0:\n        return name_of(lid)\n    for b in LEVEL_BIPS:\n        p = safe(lambda: e.get_Parameter(b), None)\n        if p is not None and p.StorageType == DB.StorageType.ElementId:\n            i = p.AsElementId()\n            if idval(i) > 0:\n                return name_of(i)\n    return \"\"\n\n\n_ws_cache = {}\n\n\ndef workset_name(e):\n    if not doc.IsWorkshared:\n        return \"\"\n    try:\n        wid = e.WorksetId\n        k = wid.IntegerValue\n        if k not in _ws_cache:\n            _ws_cache[k] = doc.GetWorksetTable().GetWorkset(wid).Name\n        return _ws_cache[k]\n    except Exception:\n        return \"\"\n\n\nIFC_CHARS = \"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$\"\n\n\ndef guid_to_ifc(g):\n    n = int(str(g).replace(\"-\", \"\").replace(\"{\", \"\").replace(\"}\", \"\"), 16)\n    out = []\n    for _ in range(22):\n        out.append(IFC_CHARS[n % 64])\n        n //= 64\n    return \"\".join(reversed(out))\n\n\ndef ifc_guid(e):\n    for n in (\"IFC_GUID\", \"IFC_TYPE_GUID\"):\n        b = bip(n)\n        if b is None:\n            continue\n        p = safe(lambda: e.get_Parameter(b), None)\n        v = param_str(p) if p is not None else None\n        if v:\n            return v\n    try:\n        return guid_to_ifc(DB.ExportUtils.GetExportId(doc, e.Id))\n    except Exception:\n        return \"\"\n\n\ndef cat_name(e):\n    return safe(lambda: e.Category.Name)\n\n\ndef bic_name(e):\n    try:\n        return str(System.Enum.ToObject(DB.BuiltInCategory, idval(e.Category.Id)))\n    except Exception:\n        return \"\"\n\n\nCOMMON_HEADERS = [\"Element ID\", \"Unique ID (GUID)\", \"IFC GUID\", \"Category\", \"Family\", \"Type\",\n                  \"Name\", \"Level\", \"Workset\", \"Phase Created\", \"Mark\"]\n\n\ndef common_row(e):\n    t = get_type(e)\n    fam = family_info(e)[0]\n    if isinstance(e, DB.ElementType):\n        tname = elem_name(e)\n    else:\n        tname = elem_name(t) if t is not None else \"\"\n    mark = \"\"\n    b = bip(\"ALL_MODEL_MARK\")\n    if b is not None:\n        mark = param_str(safe(lambda: e.get_Parameter(b), None)) or \"\"\n    phase = \"\"\n    try:\n        phase = name_of(e.CreatedPhaseId)\n    except Exception:\n        pass\n    return [idval(e.Id), safe(lambda: e.UniqueId), ifc_guid(e), cat_name(e), fam, tname,\n            elem_name(e), level_name(e), workset_name(e), phase, mark]\n\n\ndef fec():\n    return DB.FilteredElementCollector(doc)\n\n\ndef all_elements_collector():\n    return fec().WherePasses(DB.LogicalOrFilter(DB.ElementIsElementTypeFilter(False),\n                                                DB.ElementIsElementTypeFilter(True)))\n\n\ndef yn(b):\n    return \"Yes\" if b else \"No\"\n\n\ndef new_result(mode, headers):\n    return {\"mode\": mode, \"headers\": headers, \"rows\": [], \"info\": [], \"checked\": None,\n            \"failed\": 0, \"found\": 0, \"note\": \"\", \"by_cat\": {}, \"ids\": []}\n\n\n# =====================================================================\n# CUSTOM (FILTER BASED) CHECKS\n# =====================================================================\nNUM_RE = re.compile(r\"[-+]?\\d*\\.?\\d+(?:[eE][-+]?\\d+)?\")\n\n\ndef _num(s):\n    m = NUM_RE.search(str(s))\n    return float(m.group(0)) if m else None\n\n\ndef compare(exists, v, cond, target, ci):\n    c = (cond or \"\").lower()\n    if c == \"hasnovalue\":\n        if not exists:\n            return MISSING_PARAMETER_COUNTS_AS_FAIL\n        return v is None or str(v).strip() == \"\"\n    if c == \"hasvalue\":\n        return exists and v is not None and str(v).strip() != \"\"\n    if c in (\"exists\", \"defined\"):\n        return exists\n    if c in (\"doesnotexist\", \"notexists\", \"undefined\"):\n        return not exists\n    if not exists:\n        return False\n    if isinstance(v, bool):\n        sv = \"true\" if v else \"false\"\n        st = str(target).lower()\n    else:\n        sv = \"\" if v is None else str(v)\n        st = \"\" if target is None else str(target)\n        if ci:\n            sv, st = sv.lower(), st.lower()\n    if c in (\"equal\", \"equals\", \"isequalto\"):\n        return sv == st\n    if c in (\"notequal\", \"doesnotequal\", \"notequals\"):\n        return sv != st\n    if c == \"contains\":\n        return st in sv\n    if c in (\"doesnotcontain\", \"notcontains\"):\n        return st not in sv\n    if c in (\"beginswith\", \"startswith\"):\n        return sv.startswith(st)\n    if c in (\"doesnotbeginwith\", \"doesnotstartwith\"):\n        return not sv.startswith(st)\n    if c == \"endswith\":\n        return sv.endswith(st)\n    if c == \"doesnotendwith\":\n        return not sv.endswith(st)\n    if c in (\"matchesregex\", \"regex\", \"wildcard\"):\n        return re.search(str(target), sv, re.I if ci else 0) is not None\n    if c in (\"doesnotmatchregex\", \"notregex\", \"wildcardnomatch\"):\n        return re.search(str(target), sv, re.I if ci else 0) is None\n    if c in (\"greaterthan\", \"greaterthanorequal\", \"lessthan\", \"lessthanorequal\"):\n        a, b = _num(sv), _num(st)\n        if a is None or b is None:\n            return False\n        return {\"greaterthan\": a > b, \"greaterthanorequal\": a >= b,\n                \"lessthan\": a < b, \"lessthanorequal\": a <= b}[c]\n    raise ValueError(\"Unsupported condition: \" + str(cond))\n\n\n# =====================================================================\n# CUSTOM (FILTER BASED) CHECKS\n# =====================================================================\ndef eval_filter(e, f):\n    src, prop, cond, val, ci = f[\"src\"], f[\"prop\"], f[\"cond\"], f[\"val\"], f[\"ci\"]\n    s = src.lower()\n    if s == \"parameter\":\n        exists, v = param_lookup(e, prop)\n        m = compare(exists, v, cond, val, ci)\n        if not exists:\n            d = \"Parameter '%s' not found\" % prop\n        elif v is None or str(v).strip() == \"\":\n            d = \"'%s' is empty\" % prop\n        else:\n            d = \"%s = %s\" % (prop, v)\n        return m, d\n    if s == \"family\":\n        name, inplace, loadable = family_info(e)\n        p = prop.lower().replace(\" \", \"\")\n        if p == \"name\":\n            if FAMILY_NAME_LOADABLE_ONLY and not loadable:\n                return False, \"\"\n            return compare(True, name, cond, val, ci), \"Family = '%s' (%s '%s')\" % (name, cond, val)\n        if p == \"isinplace\":\n            return compare(True, inplace, cond, val, ci), \"In-Place family: %s\" % name\n        raise ValueError(\"Unsupported Family property: \" + str(prop))\n    if s == \"type\":\n        t = e if isinstance(e, DB.ElementType) else get_type(e)\n        tn = elem_name(t) if t is not None else \"\"\n        if prop.lower() == \"name\":\n            return compare(t is not None, tn, cond, val, ci), \"Type = '%s'\" % tn\n        raise ValueError(\"Unsupported Type property: \" + str(prop))\n    if s == \"category\":\n        cn = cat_name(e)\n        if prop.lower() == \"name\":\n            return compare(True, cn, cond, val, ci), \"Category = '%s'\" % cn\n        m = (bic_name(e) == prop)\n        if cond.lower() == \"excluded\":\n            m = not m\n        return m, \"\"\n    if s in (\"class\", \"apiclass\", \"apitype\"):\n        cls = e.GetType().Name\n        return compare(True, cls, cond, val, ci), \"Class = %s\" % cls\n    raise ValueError(\"Unsupported filter source: %s / %s\" % (src, prop))\n\n\n_cat_by_name = None\n\n\ndef _category_name_map():\n    global _cat_by_name\n    if _cat_by_name is None:\n        _cat_by_name = {}\n        for c in doc.Settings.Categories:\n            try:\n                _cat_by_name[c.Name.lower()] = idval(c.Id)\n            except Exception:\n                pass\n    return _cat_by_name\n\n\ndef resolve_category(c):\n    \"\"\"returns (BuiltInCategory or None, label)\"\"\"\n    if c is None:\n        return None, \"\"\n    if isinstance(c, str):\n        s = c.strip()\n        if not s:\n            return None, \"\"\n        if s.upper().startswith(\"OST_\"):\n            b = getattr(DB.BuiltInCategory, s, None)\n            if b is None:\n                for n in System.Enum.GetNames(DB.BuiltInCategory):\n                    if n.lower() == s.lower():\n                        b = getattr(DB.BuiltInCategory, n)\n                        break\n            return b, s\n        i = _category_name_map().get(s.lower())\n        if i is not None and i < 0:\n            return System.Enum.ToObject(DB.BuiltInCategory, i), s\n        return None, s\n    try:\n        if isinstance(c, DB.BuiltInCategory):\n            return c, str(c)\n    except Exception:\n        pass\n    try:\n        i = c.Id\n        i = idval(i) if not isinstance(i, int) else i\n        if i < 0:\n            return System.Enum.ToObject(DB.BuiltInCategory, i), safe(lambda: c.Name, str(i))\n    except Exception:\n        pass\n    return None, str(c)\n\n\ndef run_custom(chk):\n    cats = chk[\"categories\"]\n    criteria = chk[\"filters\"]\n    et = chk[\"element_type\"]\n    mode = chk[\"mode\"]\n    if mode == \"auto\":\n        mode = \"compliance\" if (criteria and cats) else (\"zero\" if criteria else \"info\")\n\n    bics, bad, labels = [], [], []\n    for c in cats:\n        b, lab = resolve_category(c)\n        if b is None:\n            bad.append(lab)\n        elif b not in bics:\n            bics.append(b)\n            labels.append(str(b))\n    col = fec()\n    if cats:\n        if not bics:\n            r = new_result(mode, COMMON_HEADERS)\n            r[\"note\"] = \"None of the categories could be resolved in this model / Revit version: \" + \", \".join(bad)\n            r[\"checked\"] = 0\n            return r\n        col = col.WherePasses(DB.ElementMulticategoryFilter(List[DB.BuiltInCategory](bics)))\n    if et == \"type\":\n        col = col.WhereElementIsElementType()\n    elif et == \"instance\":\n        col = col.WhereElementIsNotElementType()\n    else:\n        col = col.WherePasses(DB.LogicalOrFilter(DB.ElementIsElementTypeFilter(False),\n                                                 DB.ElementIsElementTypeFilter(True)))\n    population = [e for e in col if e is not None]\n    if cats:\n        population = [e for e in population if e.Category is not None]\n\n    rooms_only = set(labels) == {\"OST_Rooms\"}\n    extra = [\"Room Number\", \"Room Name\", \"Area (m²)\", \"Room Status\"] if rooms_only else []\n    headers = COMMON_HEADERS + extra + ([\"Issue\"] if criteria else [])\n    r = new_result(mode, headers)\n    if bad:\n        r[\"note\"] = \"Categories not resolved (ignored): \" + \", \".join(bad)\n\n    by_cat = {}\n    for e in population:\n        if criteria:\n            res, details = None, []\n            for f in criteria:\n                m, d = eval_filter(e, f)\n                if res is None:\n                    res = m\n                elif f[\"op\"] == \"or\":\n                    res = res or m\n                else:\n                    res = res and m\n                if m and d:\n                    details.append(d)\n            matched = bool(res)\n        else:\n            matched, details = True, []\n        cn = cat_name(e) or \"(no category)\"\n        bc = by_cat.setdefault(cn, [0, 0])\n        bc[0] += 1\n        if not matched:\n            continue\n        bc[1] += 1\n        row = common_row(e)\n        if rooms_only:\n            area = safe(lambda: e.Area, 0.0) or 0.0\n            if safe(lambda: e.Location, None) is None:\n                st = \"Not Placed\"\n            elif area <= 0:\n                st = \"Not Enclosed / Redundant\"\n            else:\n                st = \"Placed\"\n            row += [param_str(safe(lambda: e.get_Parameter(bip(\"ROOM_NUMBER\")), None)) or \"\",\n                    param_str(safe(lambda: e.get_Parameter(bip(\"ROOM_NAME\")), None)) or \"\",\n                    round(area * SQFT_TO_SQM, 2), st]\n        if criteria:\n            row.append(\"; \".join(details))\n        r[\"rows\"].append(row)\n        r[\"ids\"].append(row[0])\n\n    r[\"rows\"].sort(key=lambda x: (str(x[3]), str(x[4]), str(x[5]), x[0]))\n    r[\"found\"] = len(r[\"rows\"])\n    if mode == \"compliance\":\n        r[\"checked\"] = len(population)\n        r[\"failed\"] = r[\"found\"]\n        r[\"by_cat\"] = by_cat\n    else:\n        r[\"checked\"] = r[\"found\"]\n        r[\"failed\"] = r[\"found\"] if mode == \"zero\" else 0\n        r[\"info\"].append((\"Elements by category\", \", \".join(\n            \"%s: %d\" % (k, v[1]) for k, v in sorted(by_cat.items()) if v[1])))\n    return r\n\n\n# =====================================================================\n# PREBUILT CHECKS\n# =====================================================================\ndef chk_phase(chk):\n    r = new_result(\"info\", COMMON_HEADERS + [\"Phase Demolished\"])\n    phases = [p for p in doc.Phases]\n    pname = dict((idval(p.Id), p.Name) for p in phases)\n    counts = {}\n    for e in fec().WhereElementIsNotElementType():\n        try:\n            if e.Category is None or e.Category.CategoryType != DB.CategoryType.Model:\n                continue\n            v = idval(e.CreatedPhaseId)\n        except Exception:\n            continue\n        if v not in pname:\n            continue\n        counts[v] = counts.get(v, 0) + 1\n        if LIST_PHASE_ELEMENTS:\n            r[\"rows\"].append(common_row(e) + [name_of(e.DemolishedPhaseId)])\n    for p in phases:\n        r[\"info\"].append((\"Phase: \" + p.Name, counts.get(idval(p.Id), 0)))\n    r[\"rows\"].sort(key=lambda x: (str(x[9]), str(x[3]), x[0]))\n    r[\"found\"] = r[\"checked\"] = sum(counts.values())\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_coords(chk):\n    r = new_result(\"info\", [\"Item\", \"Coordinates\", \"E / X (mm)\", \"N / Y (mm)\", \"Elev / Z (mm)\", \"Note\"])\n    try:\n        pts = [(\"Project Base Point\", DB.BasePoint.GetProjectBasePoint(doc)),\n               (\"Survey Point\", DB.BasePoint.GetSurveyPoint(doc))]\n    except Exception:\n        pts = []\n        for bp in fec().OfClass(DB.BasePoint):\n            pts.append((\"Survey Point\" if bp.IsShared else \"Project Base Point\", bp))\n    for label, bp in pts:\n        try:\n            p, s = bp.Position, bp.SharedPosition\n            r[\"rows\"].append([label, \"Internal\", round(p.X * FT_TO_MM, 3), round(p.Y * FT_TO_MM, 3),\n                              round(p.Z * FT_TO_MM, 3), \"Element ID %d\" % idval(bp.Id)])\n            r[\"rows\"].append([label, \"Shared\", round(s.X * FT_TO_MM, 3), round(s.Y * FT_TO_MM, 3),\n                              round(s.Z * FT_TO_MM, 3), \"\"])\n        except Exception as ex:\n            r[\"rows\"].append([label, \"Error\", \"\", \"\", \"\", str(ex)])\n    try:\n        loc = doc.ActiveProjectLocation\n        pp = loc.GetProjectPosition(DB.XYZ.Zero)\n        ang = pp.Angle * 180.0 / 3.141592653589793\n        r[\"rows\"].append([\"Internal Origin -> Shared\", \"Project Position\", round(pp.EastWest * FT_TO_MM, 3),\n                          round(pp.NorthSouth * FT_TO_MM, 3), round(pp.Elevation * FT_TO_MM, 3),\n                          \"Angle to True North = %.6f°\" % ang])\n        r[\"info\"].append((\"Active Location\", loc.Name))\n        r[\"info\"].append((\"Angle to True North (°)\", round(ang, 6)))\n    except Exception:\n        pass\n    try:\n        site = doc.SiteLocation\n        r[\"info\"].append((\"Site Place Name\", site.PlaceName))\n        r[\"info\"].append((\"Latitude / Longitude (°)\", \"%.6f / %.6f\" % (site.Latitude * 57.29577951308232,\n                                                                        site.Longitude * 57.29577951308232)))\n    except Exception:\n        pass\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    return r\n\n\ndef chk_projinfo(chk):\n    r = new_result(\"info\", [\"Parameter\", \"Value\", \"Has Value\", \"Shared Parameter\", \"Read Only\"])\n    pi = doc.ProjectInformation\n    rows = []\n    for p in pi.Parameters:\n        n = safe(lambda: p.Definition.Name)\n        if not n or n.startswith(\"Extensions\"):\n            continue\n        v = param_str(p) or \"\"\n        rows.append([n, v, yn(v.strip() != \"\"), yn(safe(lambda: p.IsShared, False)),\n                     yn(safe(lambda: p.IsReadOnly, False))])\n    rows.sort(key=lambda x: x[0].lower())\n    r[\"rows\"] = rows\n    empty = len([x for x in rows if x[2] == \"No\"])\n    r[\"info\"].append((\"Parameters with value\", \"%d / %d\" % (len(rows) - empty, len(rows))))\n    r[\"found\"] = r[\"checked\"] = len(rows)\n    return r\n\n\ndef _ext_path(t):\n    try:\n        ref = t.GetExternalFileReference()\n        return (DB.ModelPathUtils.ConvertModelPathToUserVisiblePath(ref.GetAbsolutePath()),\n                str(ref.GetLinkedFileStatus()), str(ref.PathType))\n    except Exception:\n        return \"\", \"\", \"\"\n\n\ndef chk_linked_cad(chk):\n    r = new_result(\"zero\", [\"Element ID\", \"Unique ID (GUID)\", \"File Name\", \"View Specific\", \"Owner View\",\n                            \"Pinned\", \"Workset\", \"Path\", \"Status\", \"Path Type\"])\n    for ii in fec().OfClass(DB.ImportInstance):\n        if not ii.IsLinked:\n            continue\n        t = doc.GetElement(ii.GetTypeId())\n        path, status, ptype = _ext_path(t)\n        r[\"rows\"].append([idval(ii.Id), ii.UniqueId, cat_name(ii), yn(ii.ViewSpecific),\n                          name_of(ii.OwnerViewId), yn(ii.Pinned), workset_name(ii), path, status, ptype])\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_imported_skp(chk):\n    r = new_result(\"zero\", [\"Element ID\", \"Unique ID (GUID)\", \"File Name\", \"Linked / Imported\",\n                            \"View Specific\", \"Owner View\", \"Workset\"])\n    for ii in fec().OfClass(DB.ImportInstance):\n        n = cat_name(ii)\n        t = doc.GetElement(ii.GetTypeId())\n        if not (n.lower().endswith(\".skp\") or elem_name(t).lower().endswith(\".skp\")):\n            continue\n        r[\"rows\"].append([idval(ii.Id), ii.UniqueId, n, \"Linked\" if ii.IsLinked else \"Imported\",\n                          yn(ii.ViewSpecific), name_of(ii.OwnerViewId), workset_name(ii)])\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_link_method(chk):\n    r = new_result(\"info\", [\"Type ID\", \"Unique ID (GUID)\", \"Link Name\", \"Attachment Type\", \"Path Type\",\n                            \"Loaded\", \"Instances\", \"Path\", \"Status\"])\n    inst = {}\n    for li in fec().OfClass(DB.RevitLinkInstance):\n        k = idval(li.GetTypeId())\n        inst[k] = inst.get(k, 0) + 1\n    for t in fec().OfClass(DB.RevitLinkType):\n        path, status, ptype = _ext_path(t)\n        r[\"rows\"].append([idval(t.Id), t.UniqueId, elem_name(t), str(safe(lambda: t.AttachmentType)),\n                          ptype or str(safe(lambda: t.PathType)),\n                          yn(safe(lambda: DB.RevitLinkType.IsLoaded(doc, t.Id), False)),\n                          inst.get(idval(t.Id), 0), path, status])\n    att = len([x for x in r[\"rows\"] if \"Attach\" in x[3]])\n    r[\"info\"].append((\"Overlay / Attachment\", \"%d / %d\" % (len(r[\"rows\"]) - att, att)))\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_raster(chk):\n    r = new_result(\"zero\", [\"Element ID\", \"Unique ID (GUID)\", \"Name\", \"Owner View\", \"Type\", \"Path\", \"Workset\"])\n    for e in fec().OfCategory(DB.BuiltInCategory.OST_RasterImages).WhereElementIsNotElementType():\n        t = get_type(e)\n        r[\"rows\"].append([idval(e.Id), e.UniqueId, elem_name(e), name_of(safe(lambda: e.OwnerViewId,\n                          DB.ElementId.InvalidElementId)), elem_name(t), safe(lambda: t.Path), workset_name(e)])\n    types = list(fec().OfClass(DB.ImageType))\n    r[\"info\"].append((\"Image types in project\", len(types)))\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_unused(chk):\n    r = new_result(\"zero\", [\"Element ID\", \"Unique ID (GUID)\", \"Category\", \"Class\", \"Family\", \"Name\"])\n    ids = None\n    try:\n        ids = list(doc.GetUnusedElements(HashSet[DB.ElementId]()))   # Revit 2024+\n        r[\"note\"] = \"Source: Document.GetUnusedElements (same as Purge Unused).\"\n    except Exception:\n        try:\n            rid = DB.PerformanceAdviserRuleId(System.Guid(\"e8c63650-70b7-435a-9010-ec97660c1bda\"))\n            msgs = DB.PerformanceAdviser.GetPerformanceAdviser().ExecuteRules(\n                doc, List[DB.PerformanceAdviserRuleId]([rid]))\n            ids = []\n            for m in msgs:\n                ids += list(m.GetFailingElements())\n            r[\"note\"] = \"Source: Performance Adviser 'unused families and types' (Revit < 2024).\"\n        except Exception as ex:\n            r[\"note\"] = \"Unused elements could not be evaluated: \" + str(ex)\n            ids = []\n    for i in ids:\n        e = doc.GetElement(i)\n        if e is None:\n            continue\n        r[\"rows\"].append([idval(e.Id), e.UniqueId, cat_name(e), e.GetType().Name, family_info(e)[0], elem_name(e)])\n    r[\"rows\"].sort(key=lambda x: (str(x[2]), str(x[4]), str(x[5])))\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_worksets(chk):\n    r = new_result(\"info\", [\"Workset ID\", \"Workset Name\", \"Open\", \"Visible by Default\", \"Owner\",\n                            \"Editable\", \"Element Count\"])\n    if not doc.IsWorkshared:\n        r[\"info\"].append((\"Worksharing\", \"*Not Workshared*\"))\n        return r\n    for ws in DB.FilteredWorksetCollector(doc).OfKind(DB.WorksetKind.UserWorkset):\n        cnt = safe(lambda: fec().WherePasses(DB.ElementWorksetFilter(ws.Id, False))\n                   .WhereElementIsNotElementType().GetElementCount(), \"\")\n        r[\"rows\"].append([ws.Id.IntegerValue, ws.Name, yn(ws.IsOpen), yn(ws.IsVisibleByDefault),\n                          ws.Owner, yn(ws.IsEditable), cnt])\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    return r\n\n\ndef chk_design_options(chk):\n    r = new_result(\"info\", [\"Element ID\", \"Unique ID (GUID)\", \"Option Set\", \"Design Option\", \"Primary\",\n                            \"Element Count\"])\n    b = bip(\"OPTION_SET_ID\")\n    for o in fec().OfClass(DB.DesignOption):\n        oset = \"\"\n        try:\n            oset = name_of(o.get_Parameter(b).AsElementId())\n        except Exception:\n            pass\n        cnt = safe(lambda: fec().WherePasses(DB.ElementDesignOptionFilter(o.Id)).GetElementCount(), \"\")\n        r[\"rows\"].append([idval(o.Id), o.UniqueId, oset, elem_name(o), yn(o.IsPrimary), cnt])\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_warnings(chk):\n    r = new_result(\"zero\", [\"No.\", \"Warning\", \"Severity\", \"Element Count\", \"Element IDs (Select by ID)\",\n                            \"Unique IDs\", \"Categories\"])\n    groups = {}\n    allids = []\n    for i, w in enumerate(doc.GetWarnings(), 1):\n        ids = list(w.GetFailingElements()) + list(w.GetAdditionalElements())\n        els = [doc.GetElement(x) for x in ids]\n        desc = w.GetDescriptionText()\n        groups[desc] = groups.get(desc, 0) + 1\n        nums = [idval(x) for x in ids]\n        allids += nums\n        r[\"rows\"].append([i, desc, str(w.GetSeverity()), len(ids), \";\".join(str(n) for n in nums),\n                          \"; \".join(e.UniqueId for e in els if e is not None),\n                          \", \".join(sorted(set(cat_name(e) for e in els if e is not None)))])\n    for d, c in sorted(groups.items(), key=lambda x: -x[1]):\n        r[\"info\"].append((\"[%d] %s\" % (c, d[:200]), \"\"))\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = sorted(set(allids))\n    return r\n\n\nGRAPHIC_VIEWS = set([\"FloorPlan\", \"CeilingPlan\", \"Elevation\", \"Section\", \"ThreeD\", \"EngineeringPlan\",\n                     \"AreaPlan\", \"Detail\"])\n\n\ndef chk_hidden(chk):\n    r = new_result(\"zero\", [\"View ID\", \"View Name\", \"View Type\", \"Hidden Elements\", \"Hidden Element IDs (first 200)\"])\n    views = [v for v in fec().OfClass(DB.View) if not v.IsTemplate and str(v.ViewType) in GRAPHIC_VIEWS]\n    elems = [e for e in fec().WhereElementIsNotElementType()\n             if e.Category is not None and e.Category.CategoryType == DB.CategoryType.Model\n             and idval(e.OwnerViewId) < 0]\n    for v in views:\n        hid = []\n        for e in elems:\n            try:\n                if e.IsHidden(v):\n                    hid.append(idval(e.Id))\n            except Exception:\n                pass\n        if hid:\n            r[\"rows\"].append([idval(v.Id), v.Name, str(v.ViewType), len(hid), \";\".join(str(x) for x in hid[:200])])\n    r[\"rows\"].sort(key=lambda x: -x[3])\n    r[\"found\"] = r[\"checked\"] = r[\"failed\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[0] for x in r[\"rows\"]]\n    return r\n\n\ndef chk_file_size(chk):\n    r = new_result(\"info\", [\"Item\", \"Path\", \"Size (MB)\"])\n    p = doc.PathName\n    if p and os.path.exists(p):\n        r[\"rows\"].append([\"Local / Opened model\", p, round(os.path.getsize(p) / 1048576.0, 2)])\n    else:\n        r[\"note\"] = \"Model file not found on disk (cloud model or unsaved).\"\n    if doc.IsWorkshared:\n        try:\n            cp = DB.ModelPathUtils.ConvertModelPathToUserVisiblePath(doc.GetWorksharingCentralModelPath())\n            if cp and os.path.exists(cp):\n                r[\"rows\"].append([\"Central model\", cp, round(os.path.getsize(cp) / 1048576.0, 2)])\n        except Exception:\n            pass\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    return r\n\n\ndef chk_largest_families(chk):\n    r = new_result(\"info\", [\"Rank\", \"Family ID\", \"Unique ID (GUID)\", \"Family\", \"Category\", \"Size (KB)\"])\n    TransactionManager.Instance.ForceCloseTransaction()\n    tmp = os.path.join(os.environ.get(\"TEMP\", os.path.expanduser(\"~\")), \"AA_ModelChecker_Families\")\n    if not os.path.exists(tmp):\n        os.makedirs(tmp)\n    sizes = []\n    for f in fec().OfClass(DB.Family):\n        if f.IsInPlace or not f.IsEditable:\n            continue\n        fp = os.path.join(tmp, re.sub(r'[\\\\/:*?\"<>|]', \"_\", f.Name) + \".rfa\")\n        try:\n            fd = doc.EditFamily(f)\n            opt = DB.SaveAsOptions()\n            opt.OverwriteExistingFile = True\n            fd.SaveAs(fp, opt)\n            fd.Close(False)\n            sizes.append((os.path.getsize(fp) / 1024.0, f))\n            os.remove(fp)\n        except Exception:\n            pass\n    sizes.sort(key=lambda x: -x[0])\n    for i, (s, f) in enumerate(sizes, 1):\n        r[\"rows\"].append([i, idval(f.Id), f.UniqueId, f.Name, safe(lambda: f.FamilyCategory.Name), round(s, 1)])\n    r[\"note\"] = \"All editable loadable families listed; ranks 1-10 = the ten largest.\"\n    r[\"found\"] = r[\"checked\"] = len(r[\"rows\"])\n    r[\"ids\"] = [x[1] for x in r[\"rows\"][:10]]\n    return r\n\n\nPREBUILT = {\n    \"PhaseElements\": chk_phase,\n    \"ProjectCoordinates\": chk_coords,\n    \"ProjectInformation\": chk_projinfo,\n    \"LinkedCad\": chk_linked_cad,\n    \"LinkMethod\": chk_link_method,\n    \"RasterImages\": chk_raster,\n    \"UnusedElements\": chk_unused,\n    \"ImportedSkp\": chk_imported_skp,\n    \"Worksets\": chk_worksets,\n    \"DesignOptions\": chk_design_options,\n    \"WarningCount\": chk_warnings,\n    \"ViewsWithHiddenElements\": chk_hidden,\n    \"FileSize\": chk_file_size,\n    \"TenLargestFamilies\": chk_largest_families,\n}\n\n\n# =====================================================================\n# RULE PARSER  (Dynamo Code Block dictionaries -> normalized checks)\n# =====================================================================\nVALID_CONDITIONS = set([\"hasvalue\", \"hasnovalue\", \"exists\", \"defined\", \"doesnotexist\", \"notexists\",\n                        \"undefined\", \"equal\", \"equals\", \"isequalto\", \"notequal\", \"doesnotequal\",\n                        \"notequals\", \"contains\", \"doesnotcontain\", \"notcontains\", \"beginswith\",\n                        \"startswith\", \"doesnotbeginwith\", \"doesnotstartwith\", \"endswith\",\n                        \"doesnotendwith\", \"matchesregex\", \"regex\", \"wildcard\", \"doesnotmatchregex\",\n                        \"notregex\", \"wildcardnomatch\", \"greaterthan\", \"greaterthanorequal\",\n                        \"lessthan\", \"lessthanorequal\", \"included\", \"excluded\"])\nVALID_SOURCES = set([\"parameter\", \"family\", \"type\", \"category\", \"class\", \"apiclass\", \"apitype\"])\nVALID_MODES = {\"auto\": \"auto\", \"compliance\": \"compliance\", \"zero\": \"zero\", \"mustbezero\": \"zero\",\n               \"info\": \"info\", \"information\": \"info\"}\nVALID_ET = {\"instance\": \"instance\", \"instances\": \"instance\", \"type\": \"type\", \"types\": \"type\",\n            \"both\": \"both\", \"all\": \"both\"}\n\n\ndef is_seq(x):\n    if x is None or isinstance(x, (str, bytes, dict)):\n        return False\n    if isinstance(x, (list, tuple)):\n        return True\n    try:\n        if hasattr(x, \"Keys\") and hasattr(x, \"Values\"):\n            return False\n        iter(x)\n        return True\n    except Exception:\n        return False\n\n\ndef to_py(x):\n    if x is None or isinstance(x, (str, bool, int, float)):\n        return x\n    if isinstance(x, dict):\n        return dict((str(k), to_py(v)) for k, v in x.items())\n    if hasattr(x, \"Keys\") and (hasattr(x, \"ValueAtKey\") or hasattr(x, \"Values\")):\n        try:\n            keys = [str(k) for k in x.Keys]\n            if hasattr(x, \"ValueAtKey\"):\n                return dict((k, to_py(x.ValueAtKey(k))) for k in keys)\n            return dict(zip(keys, [to_py(v) for v in x.Values]))\n        except Exception:\n            pass\n    if is_seq(x):\n        return [to_py(v) for v in x]\n    return x\n\n\ndef flatten_rules(x, out):\n    x = to_py(x)\n    if isinstance(x, dict):\n        out.append(x)\n    elif isinstance(x, list):\n        for v in x:\n            flatten_rules(v, out)\n    return out\n\n\ndef _get(d, key, default=None):\n    lk = key.lower().replace(\" \", \"\")\n    for k, v in d.items():\n        if str(k).lower().replace(\" \", \"\") == lk:\n            return default if v is None else v\n    return default\n\n\ndef _bool(v, default=False):\n    if v is None or v == \"\":\n        return default\n    if isinstance(v, bool):\n        return v\n    return str(v).strip().lower() in (\"true\", \"yes\", \"1\", \"y\", \"on\")\n\n\ndef _str(v):\n    return \"\" if v is None else str(v)\n\n\ndef parse_filter(f, idx, rname, msgs):\n    if isinstance(f, dict):\n        src, prop = _get(f, \"Source\", _get(f, \"Category\", \"\")), _get(f, \"Property\", \"\")\n        cond, val = _get(f, \"Condition\", \"\"), _get(f, \"Value\", \"\")\n        op, ci = _get(f, \"Operator\", \"And\"), _get(f, \"CaseInsensitive\", False)\n    elif isinstance(f, list):\n        if len(f) < 3:\n            msgs.append(\"[%s] filter %d ignored: needs at least [Source, Property, Condition]\" % (rname, idx))\n            return None\n        src, prop, cond = f[0], f[1], f[2]\n        val = f[3] if len(f) > 3 else \"\"\n        op = f[4] if len(f) > 4 else \"And\"\n        ci = f[5] if len(f) > 5 else False\n    else:\n        msgs.append(\"[%s] filter %d ignored: not a list\" % (rname, idx))\n        return None\n    if isinstance(val, bool):\n        val = \"True\" if val else \"False\"\n    nf = {\"src\": _str(src).strip(), \"prop\": _str(prop).strip(), \"cond\": _str(cond).strip(),\n          \"val\": _str(val), \"op\": _str(op).strip().lower() or \"and\", \"ci\": _bool(ci)}\n    if nf[\"src\"].lower() not in VALID_SOURCES:\n        msgs.append(\"[%s] filter %d: unknown Source '%s'\" % (rname, idx, nf[\"src\"]))\n    if nf[\"cond\"].lower() not in VALID_CONDITIONS:\n        msgs.append(\"[%s] filter %d: unknown Condition '%s'\" % (rname, idx, nf[\"cond\"]))\n    if nf[\"op\"] not in (\"and\", \"or\"):\n        msgs.append(\"[%s] filter %d: Operator must be And / Or (got '%s'), using And\" % (rname, idx, op))\n        nf[\"op\"] = \"and\"\n    return nf\n\n\ndef parse_rules(raw):\n    msgs = []\n    checks = []\n    for i, d in enumerate(flatten_rules(raw, []), 1):\n        name = _str(_get(d, \"Name\", \"\")).strip() or (\"Rule %02d\" % i)\n        if not _get(d, \"Name\"):\n            msgs.append(\"Rule %d has no Name - named '%s'\" % (i, name))\n        ctype = _str(_get(d, \"Type\", \"Custom\")).strip() or \"Custom\"\n        if ctype.lower() == \"custom\":\n            ctype = \"Custom\"\n        else:\n            hit = [k for k in PREBUILT if k.lower() == ctype.lower()]\n            if hit:\n                ctype = hit[0]\n            else:\n                msgs.append(\"[%s] unknown Type '%s'\" % (name, ctype))\n        mode_raw = _str(_get(d, \"Mode\", \"Auto\")).strip().lower().replace(\" \", \"\") or \"auto\"\n        mode = VALID_MODES.get(mode_raw)\n        if mode is None:\n            msgs.append(\"[%s] unknown Mode '%s' - using Auto\" % (name, mode_raw))\n            mode = \"auto\"\n        et_raw = _str(_get(d, \"ElementType\", \"Instance\")).strip().lower() or \"instance\"\n        et = VALID_ET.get(et_raw)\n        if et is None:\n            msgs.append(\"[%s] unknown ElementType '%s' - using Instance\" % (name, et_raw))\n            et = \"instance\"\n        cats = _get(d, \"Categories\", []) or []\n        if not isinstance(cats, list):\n            cats = [cats]\n        flts = _get(d, \"Filters\", []) or []\n        if isinstance(flts, list) and flts and not isinstance(flts[0], (list, dict)):\n            flts = [flts]\n        filters = []\n        for k, f in enumerate(flts if isinstance(flts, list) else [flts], 1):\n            nf = parse_filter(f, k, name, msgs)\n            if nf is not None:\n                filters.append(nf)\n        if ctype == \"Custom\" and not cats and not filters:\n            msgs.append(\"[%s] custom rule has no Categories and no Filters - it will list every element\" % name)\n        checks.append({\n            \"heading\": _str(_get(d, \"Heading\", \"\")), \"section\": _str(_get(d, \"Section\", \"\")),\n            \"name\": name, \"desc\": _str(_get(d, \"Description\", \"\")),\n            \"ctype\": ctype, \"mode\": mode, \"element_type\": et,\n            \"required\": _bool(_get(d, \"Required\"), False),\n            \"enabled\": _bool(_get(d, \"Enabled\"), True),\n            \"categories\": cats, \"filters\": filters,\n            \"options\": _get(d, \"Options\", {}) or {},\n        })\n    return checks, msgs\n\n\ndef apply_options(opt):\n    opt = to_py(opt)\n    if not isinstance(opt, dict):\n        return []\n    msgs = []\n    g = globals()\n    for k, v in opt.items():\n        key = OPTION_KEYS.get(str(k).lower().replace(\" \", \"\").replace(\"_\", \"\"))\n        if key is None:\n            msgs.append(\"Unknown global option '%s' ignored\" % k)\n            continue\n        cur = g[key]\n        if isinstance(cur, bool):\n            g[key] = _bool(v, cur)\n        elif isinstance(cur, int):\n            try:\n                g[key] = int(v)\n            except Exception:\n                msgs.append(\"Option '%s' must be a number\" % k)\n        else:\n            g[key] = _str(v)\n    return msgs\n\n\ndef finalize(chk, r):\n    mode = r[\"mode\"]\n    comp = None\n    if mode == \"compliance\":\n        if r[\"checked\"]:\n            comp = float(r[\"checked\"] - r[\"failed\"]) / r[\"checked\"]\n            status = \"PASS\" if r[\"failed\"] == 0 else \"FAIL\"\n        else:\n            status = \"INFO\"\n            r[\"note\"] = (r[\"note\"] + \" \" if r[\"note\"] else \"\") + \"No elements in scope.\"\n    elif mode == \"zero\":\n        status = \"PASS\" if r[\"found\"] == 0 else \"REVIEW\"\n    else:\n        status = \"FAIL\" if (chk[\"required\"] and r[\"found\"] == 0) else \"INFO\"\n    r[\"status\"], r[\"completion\"] = status, comp\n    return r\n\n\ndef run_check(chk):\n    if not chk[\"enabled\"]:\n        r = new_result(\"info\", [\"Note\"])\n        r[\"status\"], r[\"completion\"] = \"SKIPPED\", None\n        r[\"note\"] = \"Rule is disabled in Dynamo (Enable toggle = False).\"\n        return r\n    try:\n        if chk[\"ctype\"] == \"Custom\":\n            r = run_custom(chk)\n        elif chk[\"ctype\"] in PREBUILT:\n            r = PREBUILT[chk[\"ctype\"]](chk)\n            if chk[\"mode\"] != \"auto\":\n                r[\"mode\"] = chk[\"mode\"]\n                if chk[\"mode\"] == \"zero\":\n                    r[\"failed\"] = r[\"found\"]\n        else:\n            r = new_result(\"info\", [\"Note\"])\n            r[\"status\"], r[\"completion\"] = \"SKIPPED\", None\n            r[\"note\"] = \"Check type '%s' is not implemented.\" % chk[\"ctype\"]\n            return r\n        return finalize(chk, r)\n    except Exception:\n        r = new_result(\"info\", [\"Error\"])\n        r[\"rows\"] = [[line] for line in traceback.format_exc().splitlines()]\n        r[\"status\"], r[\"completion\"], r[\"note\"] = \"ERROR\", None, \"Check failed to run - see error below.\"\n        return r\n\n\n# =====================================================================\n# MINIMAL XLSX WRITER (standard library only)\n# =====================================================================\nS_DEFAULT, S_HEADER, S_TITLE, S_PCT, S_PASS, S_FAIL, S_REVIEW, S_INFO, S_CELL, S_LINK, \\\n    S_BOLD, S_SUB, S_KPI_PCT, S_INT, S_GREY, S_KPI, S_WRAP, S_KPI_LABEL = range(18)\nSTATUS_STYLE = {\"PASS\": S_PASS, \"FAIL\": S_FAIL, \"REVIEW\": S_REVIEW, \"INFO\": S_INFO,\n                \"SKIPPED\": S_GREY, \"ERROR\": S_FAIL}\nSTATUS_TAB = {\"PASS\": \"FF70AD47\", \"FAIL\": \"FFC00000\", \"REVIEW\": \"FFFFC000\", \"INFO\": \"FF5B9BD5\",\n              \"SKIPPED\": \"FFA6A6A6\", \"ERROR\": \"FFC00000\"}\nNO_MEASURE = (S_TITLE, S_SUB, S_WRAP, S_KPI, S_KPI_PCT, S_KPI_LABEL)\n_BAD_XML = re.compile(u\"[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\ufffe\\uffff]\")\n\n\ndef col_letter(c):\n    s = \"\"\n    while c > 0:\n        c, rem = divmod(c - 1, 26)\n        s = chr(65 + rem) + s\n    return s\n\n\ndef ref(r, c):\n    return \"%s%d\" % (col_letter(c), r)\n\n\ndef esc(s):\n    s = _BAD_XML.sub(\"\", s)\n    if len(s) > 32000:\n        s = s[:32000] + \"...(truncated)\"\n    return s.replace(\"&\", \"&amp;\").replace(\"<\", \"&lt;\").replace(\">\", \"&gt;\").replace('\"', \"&quot;\")\n\n\nclass Sheet(object):\n    def __init__(self, name):\n        self.name = name\n        self.cells = {}\n        self.links = []\n        self.merges = []\n        self.widths = {}\n        self.freeze_row = None\n        self.autofilter = None\n        self.databars = []\n        self.tab = None\n\n    def set(self, r, c, v, s=S_DEFAULT):\n        self.cells.setdefault(r, {})[c] = (v, s)\n        if v is not None and s not in NO_MEASURE:\n            if isinstance(v, float) and s in (S_PCT,):\n                ln = 8\n            else:\n                ln = max(len(x) for x in str(v).split(\"\\n\")) if str(v) else 0\n            self.widths[c] = max(self.widths.get(c, 0), min(ln, 60))\n\n    def row(self, r, values, s=S_DEFAULT, start=1):\n        for i, v in enumerate(values):\n            if isinstance(v, tuple):\n                self.set(r, start + i, v[0], v[1])\n            else:\n                self.set(r, start + i, v, s)\n\n    def link(self, r, c, text, sheet_name, s=S_LINK):\n        self.set(r, c, text, s)\n        self.links.append((ref(r, c), \"'%s'!A1\" % sheet_name.replace(\"'\", \"''\"), text))\n\n    def xml(self, selected=False):\n        out = ['<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>',\n               '<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" '\n               'xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">']\n        if self.tab:\n            out.append('<sheetPr><tabColor rgb=\"%s\"/></sheetPr>' % self.tab)\n        maxr = max(self.cells) if self.cells else 1\n        maxc = max([max(v) for v in self.cells.values() if v] or [1])\n        out.append('<dimension ref=\"A1:%s\"/>' % ref(maxr, maxc))\n        sv = '<sheetView workbookViewId=\"0\" showGridLines=\"0\"%s>' % (' tabSelected=\"1\"' if selected else '')\n        if self.freeze_row:\n            sv += ('<pane ySplit=\"%d\" topLeftCell=\"A%d\" activePane=\"bottomLeft\" state=\"frozen\"/>'\n                   '<selection pane=\"bottomLeft\" activeCell=\"A%d\" sqref=\"A%d\"/>'\n                   % (self.freeze_row, self.freeze_row + 1, self.freeze_row + 1, self.freeze_row + 1))\n        out.append('<sheetViews>%s</sheetView></sheetViews>' % sv)\n        out.append('<sheetFormatPr defaultRowHeight=\"15\"/>')\n        if self.widths:\n            out.append(\"<cols>\")\n            for c in sorted(self.widths):\n                out.append('<col min=\"%d\" max=\"%d\" width=\"%.1f\" customWidth=\"1\"/>'\n                           % (c, c, max(8, min(self.widths[c] * 1.1 + 2, 65))))\n            out.append(\"</cols>\")\n        out.append(\"<sheetData>\")\n        for r in sorted(self.cells):\n            cells = self.cells[r]\n            out.append('<row r=\"%d\">' % r)\n            for c in sorted(cells):\n                v, s = cells[c]\n                rf = ref(r, c)\n                if v is None or v == \"\":\n                    out.append('<c r=\"%s\" s=\"%d\"/>' % (rf, s))\n                elif isinstance(v, bool):\n                    out.append('<c r=\"%s\" s=\"%d\" t=\"inlineStr\"><is><t>%s</t></is></c>' % (rf, s, \"Yes\" if v else \"No\"))\n                elif isinstance(v, (int, float)) and v == v and abs(v) != float(\"inf\"):\n                    out.append('<c r=\"%s\" s=\"%d\"><v>%s</v></c>' % (rf, s, repr(v) if isinstance(v, float) else str(v)))\n                else:\n                    out.append('<c r=\"%s\" s=\"%d\" t=\"inlineStr\"><is><t xml:space=\"preserve\">%s</t></is></c>'\n                               % (rf, s, esc(str(v))))\n            out.append(\"</row>\")\n        out.append(\"</sheetData>\")\n        if self.autofilter:\n            out.append('<autoFilter ref=\"%s\"/>' % self.autofilter)\n        if self.merges:\n            out.append('<mergeCells count=\"%d\">%s</mergeCells>'\n                       % (len(self.merges), \"\".join('<mergeCell ref=\"%s\"/>' % m for m in self.merges)))\n        for i, rng in enumerate(self.databars, 1):\n            out.append('<conditionalFormatting sqref=\"%s\"><cfRule type=\"dataBar\" priority=\"%d\"><dataBar>'\n                       '<cfvo type=\"num\" val=\"0\"/><cfvo type=\"num\" val=\"1\"/><color rgb=\"FF63BE7B\"/>'\n                       '</dataBar></cfRule></conditionalFormatting>' % (rng, i))\n        if self.links:\n            out.append(\"<hyperlinks>%s</hyperlinks>\" % \"\".join(\n                '<hyperlink ref=\"%s\" location=\"%s\" display=\"%s\"/>' % (rf, esc(loc), esc(str(d)))\n                for rf, loc, d in self.links))\n        out.append('<pageMargins left=\"0.7\" right=\"0.7\" top=\"0.75\" bottom=\"0.75\" header=\"0.3\" footer=\"0.3\"/>')\n        out.append(\"</worksheet>\")\n        return \"\".join(out)\n\n\nSTYLES_XML = (\n    '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>'\n    '<styleSheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">'\n    '<fonts count=\"12\">'\n    '<font><sz val=\"10\"/><color rgb=\"FF000000\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FFFFFFFF\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"16\"/><color rgb=\"FF1F4E79\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FF006100\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FF9C0006\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FF9C5700\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FF1F4E79\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><u/><sz val=\"10\"/><color rgb=\"FF0563C1\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"10\"/><color rgb=\"FF000000\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><i/><sz val=\"10\"/><color rgb=\"FF595959\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><b/><sz val=\"20\"/><color rgb=\"FF1F4E79\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '<font><sz val=\"9\"/><color rgb=\"FF595959\"/><name val=\"Calibri\"/><family val=\"2\"/></font>'\n    '</fonts>'\n    '<fills count=\"9\">'\n    '<fill><patternFill patternType=\"none\"/></fill>'\n    '<fill><patternFill patternType=\"gray125\"/></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FF1F4E79\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFC6EFCE\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFFFC7CE\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFFFEB9C\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFDDEBF7\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFE7E6E6\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '<fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFF2F2F2\"/><bgColor indexed=\"64\"/></patternFill></fill>'\n    '</fills>'\n    '<borders count=\"2\"><border><left/><right/><top/><bottom/><diagonal/></border>'\n    '<border><left style=\"thin\"><color rgb=\"FFBFBFBF\"/></left><right style=\"thin\"><color rgb=\"FFBFBFBF\"/></right>'\n    '<top style=\"thin\"><color rgb=\"FFBFBFBF\"/></top><bottom style=\"thin\"><color rgb=\"FFBFBFBF\"/></bottom>'\n    '<diagonal/></border></borders>'\n    '<cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"/></cellStyleXfs>'\n    '<cellXfs count=\"18\">'\n    '<xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" xfId=\"0\"/>'                                      # 0 default\n    '<xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" wrapText=\"1\"/></xf>'  # 1 header\n    '<xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"0\" xfId=\"0\" applyFont=\"1\"/>'                        # 2 title\n    '<xf numFmtId=\"10\" fontId=\"0\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 3 pct\n    '<xf numFmtId=\"0\" fontId=\"3\" fillId=\"3\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 4 pass\n    '<xf numFmtId=\"0\" fontId=\"4\" fillId=\"4\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 5 fail\n    '<xf numFmtId=\"0\" fontId=\"5\" fillId=\"5\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 6 review\n    '<xf numFmtId=\"0\" fontId=\"6\" fillId=\"6\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 7 info\n    '<xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyBorder=\"1\"/>'                      # 8 cell\n    '<xf numFmtId=\"0\" fontId=\"7\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\"/>'        # 9 link\n    '<xf numFmtId=\"0\" fontId=\"8\" fillId=\"8\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\"/>'  # 10 bold label\n    '<xf numFmtId=\"0\" fontId=\"9\" fillId=\"0\" borderId=\"0\" xfId=\"0\" applyFont=\"1\"/>'                        # 11 subtitle\n    '<xf numFmtId=\"10\" fontId=\"10\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyNumberFormat=\"1\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/></xf>'  # 12 kpi pct\n    '<xf numFmtId=\"3\" fontId=\"0\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 13 int\n    '<xf numFmtId=\"0\" fontId=\"8\" fillId=\"7\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\"/></xf>'  # 14 grey\n    '<xf numFmtId=\"0\" fontId=\"10\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/></xf>'  # 15 kpi\n    '<xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"1\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment vertical=\"top\" wrapText=\"1\"/></xf>'  # 16 wrap\n    '<xf numFmtId=\"0\" fontId=\"11\" fillId=\"8\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" wrapText=\"1\"/></xf>'  # 17 kpi label\n    '</cellXfs>'\n    '<cellStyles count=\"1\"><cellStyle name=\"Normal\" xfId=\"0\" builtinId=\"0\"/></cellStyles>'\n    '</styleSheet>')\n\n\ndef save_xlsx(path, sheets):\n    z = zipfile.ZipFile(path, \"w\", zipfile.ZIP_DEFLATED)\n    ct = ['<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>'\n          '<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">'\n          '<Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>'\n          '<Default Extension=\"xml\" ContentType=\"application/xml\"/>'\n          '<Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>'\n          '<Override PartName=\"/xl/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml\"/>']\n    for i in range(len(sheets)):\n        ct.append('<Override PartName=\"/xl/worksheets/sheet%d.xml\" '\n                  'ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>' % (i + 1))\n    ct.append(\"</Types>\")\n    z.writestr(\"[Content_Types].xml\", \"\".join(ct))\n    z.writestr(\"_rels/.rels\",\n               '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>'\n               '<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">'\n               '<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>'\n               '</Relationships>')\n    wb = ['<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>'\n          '<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" '\n          'xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">'\n          '<bookViews><workbookView activeTab=\"0\"/></bookViews><sheets>']\n    for i, s in enumerate(sheets):\n        wb.append('<sheet name=\"%s\" sheetId=\"%d\" r:id=\"rId%d\"/>' % (esc(s.name), i + 1, i + 1))\n    wb.append(\"</sheets>\")\n    dn = []\n    for i, s in enumerate(sheets):\n        if s.autofilter:\n            a, b = s.autofilter.split(\":\")\n            ra = re.match(r\"([A-Z]+)(\\d+)\", a).groups()\n            rb = re.match(r\"([A-Z]+)(\\d+)\", b).groups()\n            dn.append('<definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"%d\" hidden=\"1\">\\'%s\\'!$%s$%s:$%s$%s</definedName>'\n                      % (i, esc(s.name.replace(\"'\", \"''\")), ra[0], ra[1], rb[0], rb[1]))\n    if dn:\n        wb.append(\"<definedNames>%s</definedNames>\" % \"\".join(dn))\n    wb.append(\"</workbook>\")\n    z.writestr(\"xl/workbook.xml\", \"\".join(wb))\n    rels = ['<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>'\n            '<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">']\n    for i in range(len(sheets)):\n        rels.append('<Relationship Id=\"rId%d\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" '\n                    'Target=\"worksheets/sheet%d.xml\"/>' % (i + 1, i + 1))\n    rels.append('<Relationship Id=\"rId%d\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" '\n                'Target=\"styles.xml\"/></Relationships>' % (len(sheets) + 1))\n    z.writestr(\"xl/_rels/workbook.xml.rels\", \"\".join(rels))\n    z.writestr(\"xl/styles.xml\", STYLES_XML)\n    for i, s in enumerate(sheets):\n        z.writestr(\"xl/worksheets/sheet%d.xml\" % (i + 1), s.xml(selected=(i == 0)))\n    z.close()\n\n\ndef sheet_name(n, used):\n    base = re.sub(r\"[\\[\\]:*?/\\\\]\", \"\", n).strip().strip(\"'\") or \"Check\"\n    base = base[:31]\n    name, k = base, 2\n    while name.lower() in used:\n        suf = \" (%d)\" % k\n        name = base[:31 - len(suf)] + suf\n        k += 1\n    used.add(name.lower())\n    return name\n\n\n# =====================================================================\n# REPORT BUILDER\n# =====================================================================\nMODE_LABEL = {\"compliance\": \"Compliance\", \"zero\": \"Must be zero\", \"info\": \"Information\"}\n\n\ndef build_report(meta, model, checks, results, out_path):\n    used = set([\"summary\"])\n    names = []\n    for i, c in enumerate(checks, 1):\n        names.append(sheet_name(\"%02d %s\" % (i, c[\"name\"]), used))\n\n    # ---------------- Summary ----------------\n    sm = Sheet(\"Summary\")\n    sm.tab = \"FF1F4E79\"\n    sm.set(1, 1, \"Model Check Report  -  \" + (meta.get(\"name\") or \"Model Checker\"), S_TITLE)\n    sm.set(2, 1, \"Rules: %s   |   Author: %s\" % (meta.get(\"file\", \"\"), meta.get(\"author\", \"\")), S_SUB)\n    r = 4\n    for k, v in model:\n        sm.set(r, 1, k, S_BOLD)\n        sm.set(r, 2, v, S_CELL)\n        sm.merges.append(\"B%d:F%d\" % (r, r))\n        r += 1\n\n    comp = [x for x in results if x[\"mode\"] == \"compliance\" and x.get(\"completion\") is not None]\n    tot = sum(x[\"checked\"] for x in comp)\n    bad = sum(x[\"failed\"] for x in comp)\n    overall = float(tot - bad) / tot if tot else None\n    scored = [x for x in results if x[\"status\"] in (\"PASS\", \"FAIL\", \"REVIEW\")]\n    npass = len([x for x in scored if x[\"status\"] == \"PASS\"])\n    cnt = dict((s, len([x for x in results if x[\"status\"] == s]))\n               for s in (\"PASS\", \"FAIL\", \"REVIEW\", \"INFO\", \"SKIPPED\", \"ERROR\"))\n\n    r += 1\n    kr = r\n    kpis = [(\"Overall Data Completion\\n(compliance checks)\", overall if overall is not None else \"N/A\",\n             S_KPI_PCT if overall is not None else S_KPI),\n            (\"Checks Passed\", \"%d / %d\" % (npass, len(scored)), S_KPI),\n            (\"Elements Checked\", tot, S_KPI),\n            (\"Elements Failed\", bad, S_KPI),\n            (\"FAIL / REVIEW\", \"%d / %d\" % (cnt[\"FAIL\"], cnt[\"REVIEW\"]), S_KPI),\n            (\"INFO / SKIPPED / ERROR\", \"%d / %d / %d\" % (cnt[\"INFO\"], cnt[\"SKIPPED\"], cnt[\"ERROR\"]), S_KPI)]\n    for i, (lab, val, st) in enumerate(kpis):\n        c = 1 + i * 2\n        sm.set(kr, c, lab, S_KPI_LABEL)\n        sm.set(kr, c + 1, None, S_KPI_LABEL)\n        sm.merges.append(\"%s:%s\" % (ref(kr, c), ref(kr, c + 1)))\n        sm.set(kr + 1, c, val, st)\n        sm.set(kr + 1, c + 1, None, st)\n        sm.merges.append(\"%s:%s\" % (ref(kr + 1, c), ref(kr + 1, c + 1)))\n    if overall is not None:\n        sm.databars.append(ref(kr + 1, 1))\n\n    r = kr + 3\n    sm.set(r, 1, \"Check Results\", S_TITLE)\n    r += 1\n    hdr = [\"No.\", \"Heading\", \"Section\", \"Check\", \"Description\", \"Result Type\", \"Required\",\n           \"In Scope\", \"Issues / Found\", \"Passed\", \"Completion\", \"Status\", \"Note\", \"Sheet\"]\n    sm.row(r, hdr, S_HEADER)\n    first = r + 1\n    for i, (c, res) in enumerate(zip(checks, results), 1):\n        r += 1\n        passed = \"\"\n        if res[\"mode\"] == \"compliance\" and res[\"checked\"] is not None:\n            passed = res[\"checked\"] - res[\"failed\"]\n        issues = res[\"failed\"] if res[\"mode\"] in (\"compliance\", \"zero\") else res[\"found\"]\n        sm.row(r, [(i, S_INT), c[\"heading\"], c[\"section\"], (c[\"name\"], S_BOLD), c[\"desc\"],\n                   MODE_LABEL.get(res[\"mode\"], \"\"), yn(c[\"required\"]),\n                   (res[\"checked\"] if res[\"checked\"] is not None else \"\", S_INT),\n                   (issues if res[\"status\"] not in (\"SKIPPED\", \"ERROR\") else \"\", S_INT),\n                   (passed, S_INT),\n                   (res[\"completion\"] if res[\"completion\"] is not None else \"-\",\n                    S_PCT if res[\"completion\"] is not None else S_CELL),\n                   (res[\"status\"], STATUS_STYLE.get(res[\"status\"], S_CELL)),\n                   res.get(\"note\", \"\")], S_CELL)\n        sm.link(r, 14, \"Open >>\", names[i - 1])\n    sm.databars.append(\"K%d:K%d\" % (first, r))\n    sm.widths[5] = 45\n    sm.widths[13] = 45\n\n    # completion by category\n    r += 2\n    sm.set(r, 1, \"Completion by Category (compliance checks)\", S_TITLE)\n    r += 1\n    sm.row(r, [\"No.\", \"Check\", \"Category\", \"Elements\", \"Failed\", \"Passed\", \"Completion\", \"Status\"], S_HEADER)\n    cf = r + 1\n    n = 0\n    for c, res in zip(checks, results):\n        if res[\"mode\"] != \"compliance\" or not res.get(\"by_cat\"):\n            continue\n        for cat, (t, f) in sorted(res[\"by_cat\"].items()):\n            n += 1\n            r += 1\n            st = \"PASS\" if f == 0 else \"FAIL\"\n            sm.row(r, [(n, S_INT), c[\"name\"], cat, (t, S_INT), (f, S_INT), (t - f, S_INT),\n                       (float(t - f) / t if t else 0, S_PCT), (st, STATUS_STYLE[st])], S_CELL)\n    if n:\n        sm.databars.append(\"G%d:G%d\" % (cf, r))\n\n    sheets = [sm]\n\n    # ---------------- Check sheets ----------------\n    for i, (c, res) in enumerate(zip(checks, results)):\n        sh = Sheet(names[i])\n        sh.tab = STATUS_TAB.get(res[\"status\"])\n        sh.set(1, 1, \"%02d  %s\" % (i + 1, c[\"name\"]), S_TITLE)\n        sh.link(2, 1, \"<< Back to Summary\", \"Summary\", S_LINK)\n        sh.set(3, 1, \"%s  >  %s\" % (c[\"heading\"], c[\"section\"]), S_SUB)\n        sh.set(4, 1, c[\"desc\"] or \"\", S_SUB)\n        rr = 6\n        stats = [(\"Status\", (res[\"status\"], STATUS_STYLE.get(res[\"status\"], S_CELL))),\n                 (\"Result Type\", MODE_LABEL.get(res[\"mode\"], \"\")),\n                 (\"In Scope\", res[\"checked\"] if res[\"checked\"] is not None else \"\"),\n                 (\"Issues / Found\", res[\"failed\"] if res[\"mode\"] in (\"compliance\", \"zero\") else res[\"found\"]),\n                 (\"Completion\", (res[\"completion\"], S_PCT) if res[\"completion\"] is not None else \"-\")]\n        for k, v in stats:\n            sh.set(rr, 1, k, S_BOLD)\n            if isinstance(v, tuple):\n                sh.set(rr, 2, v[0], v[1])\n            else:\n                sh.set(rr, 2, v, S_CELL)\n            rr += 1\n        if res.get(\"note\"):\n            sh.set(rr, 1, \"Note\", S_BOLD)\n            sh.set(rr, 2, res[\"note\"], S_CELL)\n            rr += 1\n        for k, v in res.get(\"info\", []):\n            sh.set(rr, 1, k, S_BOLD)\n            sh.set(rr, 2, v, S_CELL)\n            rr += 1\n        ids = res.get(\"ids\") or []\n        if ids:\n            sh.set(rr, 1, \"All IDs (copy to Manage > Select by ID)\", S_BOLD)\n            if len(ids) <= MAX_IDS_IN_CELL:\n                sh.set(rr, 2, \";\".join(str(x) for x in ids), S_CELL)\n            else:\n                sh.set(rr, 2, \"%d IDs - too many for one cell, filter the table below and copy Element ID column.\"\n                       % len(ids), S_CELL)\n            rr += 1\n        # keep column A/B width sane for label block\n        sh.widths[1] = max(sh.widths.get(1, 0), 22)\n        sh.widths[2] = min(max(sh.widths.get(2, 0), 14), 40)\n\n        rr += 1\n        headers = [\"No.\"] + res[\"headers\"]\n        sh.row(rr, headers, S_HEADER)\n        hrow = rr\n        if res[\"rows\"]:\n            for k, row in enumerate(res[\"rows\"], 1):\n                rr += 1\n                sh.set(rr, 1, k, S_INT)\n                for j, v in enumerate(row):\n                    sh.set(rr, j + 2, v, S_CELL)\n            sh.autofilter = \"A%d:%s\" % (hrow, ref(rr, len(headers)))\n        else:\n            rr += 1\n            sh.set(rr, 1, \"No items found.\" if res[\"status\"] not in (\"SKIPPED\", \"ERROR\") else \"-\", S_SUB)\n        sh.freeze_row = hrow\n        sh.widths[1] = max(sh.widths.get(1, 0), 22)\n        sheets.append(sh)\n\n    # ---------------- Rule Settings (audit trail) ----------------\n    rs = Sheet(sheet_name(\"Rule Settings\", used))\n    rs.tab = \"FF7F7F7F\"\n    rs.set(1, 1, \"Rule Settings used for this run (defined in Dynamo)\", S_TITLE)\n    rs.link(2, 1, \"<< Back to Summary\", \"Summary\", S_LINK)\n    rr = 4\n    rs.row(rr, [\"No.\", \"Heading\", \"Section\", \"Check\", \"Type\", \"Enabled\", \"Required\", \"Mode\",\n                \"Element Type\", \"Categories\", \"Filters\"], S_HEADER)\n    hrow = rr\n    for i, c in enumerate(checks, 1):\n        rr += 1\n        cats = \", \".join(resolve_category(x)[1] or str(x) for x in c[\"categories\"])\n        flt = \"\\n\".join(\"%s%s [%s] %s '%s'%s\" % (\"\" if k == 0 else f[\"op\"].upper() + \" \",\n                                                    f[\"src\"], f[\"prop\"], f[\"cond\"], f[\"val\"],\n                                                    \" (ci)\" if f[\"ci\"] else \"\")\n                         for k, f in enumerate(c[\"filters\"]))\n        rs.row(rr, [(i, S_INT), c[\"heading\"], c[\"section\"], (c[\"name\"], S_BOLD), c[\"ctype\"],\n                    yn(c[\"enabled\"]), yn(c[\"required\"]), c[\"mode\"].capitalize(),\n                    c[\"element_type\"].capitalize() if c[\"ctype\"] == \"Custom\" else \"\",\n                    (cats, S_WRAP), (flt, S_WRAP)], S_CELL)\n    rs.autofilter = \"A%d:%s\" % (hrow, ref(rr, 11))\n    rs.freeze_row = hrow\n    rs.widths[10] = 60\n    rs.widths[11] = 50\n    sheets.append(rs)\n\n    save_xlsx(out_path, sheets)\n    return overall, npass, len(scored)\n\n# =====================================================================\n# MAIN\n# =====================================================================\ndef _in(i, default=None):\n    try:\n        v = IN[i]\n        return default if v is None or v == \"\" else v\n    except Exception:\n        return default\n\n\ndef main():\n    raw_rules = _in(0, None)\n    out = _in(1, None)\n    msgs = apply_options(_in(2, None))\n\n    checks, rmsgs = parse_rules(raw_rules)\n    msgs += rmsgs\n    if not checks:\n        return [\"No rules received on IN[0]. Connect the 'All Rules' node.\", None, msgs]\n    if not SHOW_DISABLED_CHECKS:\n        checks = [c for c in checks if c[\"enabled\"]]\n        if not checks:\n            return [\"All rules are disabled.\", None, msgs]\n\n    meta = {\"name\": REPORT_TITLE, \"author\": REPORT_AUTHOR,\n            \"file\": \"defined in Dynamo graph (%d rules, %d enabled)\"\n                    % (len(checks), len([c for c in checks if c[\"enabled\"]]))}\n    title = doc.Title or \"Model\"\n    stamp = datetime.datetime.now()\n    fname = \"%s_ModelCheck_%s.xlsx\" % (re.sub(r'[\\\\/:*?\"<>|]', \"_\", title), stamp.strftime(\"%Y%m%d_%H%M\"))\n    if out:\n        out = str(out)\n        out_path = out if out.lower().endswith(\".xlsx\") else os.path.join(out, fname)\n    else:\n        folder = os.path.dirname(doc.PathName) if doc.PathName and os.path.isdir(os.path.dirname(doc.PathName)) \\\n            else os.path.join(os.path.expanduser(\"~\"), \"Desktop\")\n        out_path = os.path.join(folder, fname)\n\n    results = [run_check(c) for c in checks]\n\n    model = [(\"Model\", title),\n             (\"File Path\", doc.PathName or \"(not saved / cloud)\"),\n             (\"Revit Version\", \"%s (%s)\" % (doc.Application.VersionName, doc.Application.VersionBuild)),\n             (\"Workshared\", yn(doc.IsWorkshared)),\n             (\"Run By\", doc.Application.Username),\n             (\"Run Time\", stamp.strftime(\"%Y-%m-%d %H:%M\")),\n             (\"Rule Set\", \"%s  (rules defined in Dynamo)\" % REPORT_TITLE)]\n    overall, npass, nscored = build_report(meta, model, checks, results, out_path)\n\n    if OPEN_WHEN_DONE:\n        try:\n            os.startfile(out_path)\n        except Exception:\n            pass\n\n    summary = [[\"Check\", \"Status\", \"In Scope\", \"Issues\", \"Completion\"]]\n    for c, r in zip(checks, results):\n        summary.append([c[\"name\"], r[\"status\"], r[\"checked\"], r[\"failed\"] if r[\"mode\"] != \"info\" else r[\"found\"],\n                        \"\" if r[\"completion\"] is None else \"%.1f%%\" % (r[\"completion\"] * 100)])\n    summary.append([\"OVERALL\", \"%d/%d passed\" % (npass, nscored), \"\", \"\",\n                    \"\" if overall is None else \"%.1f%%\" % (overall * 100)])\n    return [out_path, summary, msgs or [\"All rules valid.\"]]\n\n\nOUT = main()\n",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "be520aefe7e644a7b5fe6002ef34aedd",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "1f651c96ed6748339656103ecd12f554",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3d784a6d5129429895caea2390963170",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8ea9f41f597c4d3ab78b140d3e968b56",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e3f34c4591154ff09067931d13fe03a8",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 500.0,
+      "WatchHeight": 450.0,
+      "Id": "217483563ac34cd0bb7d7f988602f3b9",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "7bd2cbaaaed2453894085b7e8f9be991",
+          "Name": "",
+          "Description": "Node to show output from",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b2ab8b1ae8d040fe91fa66b86e9c9637",
+          "Name": "",
+          "Description": "Node output",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualizes a node's output"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "6e866bbcf1464127bec12d418a240d49",
+      "End": "8ea9f41f597c4d3ab78b140d3e968b56",
+      "Id": "dad5424d6b2b4f328b22ec66d8618727",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "80cb533e427d4b06b25a9f153f4bcc79",
+      "End": "3d784a6d5129429895caea2390963170",
+      "Id": "77dc5c0c990b4bb6bfaf7d7cf590fb3d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "df675e44d142453f8c3431487eafc3fc",
+      "End": "4e0e7fccd0ef4eeb8ff1b77903437cb1",
+      "Id": "c5895e64ec494a1f809dda3a2a209122",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0924aeb3d14a480da4a59de67e41cad2",
+      "End": "6f7ab87c3cc54974bd5ad96af6fb6410",
+      "Id": "3d0540e5c82c4bfb8bc7f98c5004b7a4",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "adb08f526b08402dac2099270bfee914",
+      "End": "f9781a7841814c2582e96fd1b6d31fce",
+      "Id": "af5685def4744e15a418c1f4c9bf9bb4",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c3be06a30c854e6293205e107d8ca880",
+      "End": "98c76b249d71473f90169e87747f4964",
+      "Id": "1c88317b7e634e1aa1de2bf46597dec5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "beeb45b7c0394fb2a544d75d0520ae1f",
+      "End": "073f95783cde4e3eb224d0ad377bd45d",
+      "Id": "4a73509db91a431aa626a97ecd110288",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "6207aa6f289040ac984064bdd2236d0b",
+      "End": "3a0853f6dc7641b0a9ed789c35d0111d",
+      "Id": "cbf410c2f9304ac6b27506f10d916eaa",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "56f27a27731841fcb18f8c9bcd539273",
+      "End": "12b20211f299477fa3c2fdcdc4eed4d6",
+      "Id": "af55ec87d52c4940bfea352d50388a06",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "5b5ece8935f940368b752e919b6336b1",
+      "End": "058cf0d5164b48bea82781d1953b9fcc",
+      "Id": "42bc643c89d84122b6741c8df3951008",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a3ff19fd560c4f5fb9ab87f54c6f9df6",
+      "End": "7e90b6ba62f74f30ba7e210374935158",
+      "Id": "31f80c88a1ad4759b37e3dd8e53e89a9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2975533e0a5d48ba8a1eec73e7a40c2f",
+      "End": "06e97713c05e4c28bdd82b782a74b0d0",
+      "Id": "00f8517628704cd88daee60902779cfa",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ca48c077d8e549bc95be0210217bd62e",
+      "End": "869b4f8078024498a1fcef22e5203980",
+      "Id": "2d7153bafca94f09bf93d69963c43c6c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a660aabbff4c420e92ae638f2d04c466",
+      "End": "9e732357e1314dfcad47119770410717",
+      "Id": "b69bb968ec3045d8a805bc730ce58f30",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fe67ad85d4ed4b0f8c7810c566118d57",
+      "End": "2a0bb451f5484d73b44ebbdc785464d9",
+      "Id": "4326aaff90eb4e9fbb6fca0df0b6264c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c161032d4dc143cfa9c6fe5d4c47cb42",
+      "End": "8ca38270792642e6a5bef66bacc8f027",
+      "Id": "aebfa3c9ef90426a86304b92d7392b51",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "df082ae757b7431aa5ce23c772eb2a71",
+      "End": "524d567b8be34732aa2191cb20fff8d1",
+      "Id": "5d0b1ebfdcdf4b86abedecd19a545711",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "11edcded84fb433fa7f2151562d39150",
+      "End": "4ed372f98c3541f2bcb40d79eeb1361a",
+      "Id": "795d9fd222544b34893eb5c847678d2b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2a3cd64bb56a4a24931207161ce5d0fb",
+      "End": "ec7182ec46544f47bfdba169eddbf4e8",
+      "Id": "22ddd2f7a96f4f40964e0ffeedfaa3c8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "301e5337cb3e44aa84b4851f61f26518",
+      "End": "fbc214631bf74cbfa10073d39b696922",
+      "Id": "24c3b0322dda421ca950d2fc8fb1c3fc",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "318201a9cc04418798049b95d36e64cc",
+      "End": "aaf7a176e00241349e708c856cd0ac17",
+      "Id": "d9390741ca07420981c279b9e512c05c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "66eee72f31b544aba742892c2c8107b2",
+      "End": "bdebd4bd40ae454f975e2168f7efdc15",
+      "Id": "3ad2ccd832334204b476332e054878a2",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "852acc6ca1314b33aeb877b1fa9b8816",
+      "End": "a5dc53a9901a4fc9928f3b8a699e834f",
+      "Id": "f340fcade20644b49db10ee03645476c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3ddf090ea1e04fcba47232af443c8ae5",
+      "End": "3a71bd213c4a4ccabdc57c4c64ba44f3",
+      "Id": "1fc68042bd2d470b933bbdc51c2636f8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "7a664e50642c40cfb8634376a00d2b35",
+      "End": "a01984dcf85143c3b99a784bb2f9d109",
+      "Id": "1533b229403b44f39f5de9acc65a269c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "6e916585af7a40c7a08dddd9a215d340",
+      "End": "8bb5ecd764bc44b98d7ad5be81e14513",
+      "Id": "be6e2199cb8c407d9b9c26a60b70bee3",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "627fa30f3a88450184edf17ef4ea2a11",
+      "End": "2a89a030de9e4c218f467f05ef368ecb",
+      "Id": "07cffc9ced714d02bf7273ec10e35fab",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d2f335e00f5c40278a273a32d73bc6c8",
+      "End": "527ef34299574e7bb827cdd85ce020bf",
+      "Id": "ed5c70270aef405dbcfee1cc036fe719",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "1ac1d45e8501482f92f50200157cfc1e",
+      "End": "d7eaa0d60bf3469891fcaf48bb4c7287",
+      "Id": "b9c470029fe84075b5985fdc73df220a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ccb21d460f8943f0aa09c72fb92f855f",
+      "End": "f298d20166c34c5d95f828c33432ac6c",
+      "Id": "5dd6376c894945f39b0282185f79cc6e",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9eb6589a1b504f19a1253d605d90f4f6",
+      "End": "b43de43c81924d779f5a3d3d1c7cd500",
+      "Id": "1a6e8f87677e4d7aad7388711f594fbc",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "21e5beae99ab492daceb08b753284100",
+      "End": "3d4379e5fac3442ca6cbebfd2695b150",
+      "Id": "0e7129358a0842f29959934374295a2b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4e315d464c2d4751bdab84c394f61875",
+      "End": "1422be5728d542579030082b5225ca94",
+      "Id": "e51b74a4c3274fa99b24f32e3f96d9aa",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fa3ab4a35c3c462790a95f7155225d8e",
+      "End": "4c8140c29f2d4bfabcf57404e0f05b7f",
+      "Id": "9ca38dc940bb4c5cbc44279c57d77dfa",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "da90ae59a6f9479097b6ee79369b3dac",
+      "End": "1f436ee5944c4a24b9a407e6c32727e5",
+      "Id": "d75713581c574654b80a102ada7502d0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d11234cff1e64514be73ce7d6cdb0a16",
+      "End": "ad99ed7bb80b43779fd51340a291dae9",
+      "Id": "8f3f6d5cb17d4415b42ddba8e7fed0d0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0adc3dc5973542279192c271c35ed635",
+      "End": "f337397eddd847c0a161d6fabe08b56b",
+      "Id": "1350c212b565420f85eb405103229f90",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "5e9db72a7f86499aa2960fb89eb93b4f",
+      "End": "3066530c96ab4c6fa98c9c2ec1f57952",
+      "Id": "41c84df74633424590b7a41a4cc25243",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "597b2b946ed84228a2486b5c2e52aabc",
+      "End": "d4362fbde3d0499fa280eb62f292594e",
+      "Id": "0935f637e5844571befb6b96768c52d1",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0c4cccf58d374dee85e12177bbb2a660",
+      "End": "6173de64ca3e48f1b75c70f2aebb087b",
+      "Id": "7e137d44ad6a4a94a91a60041d4eb717",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "51ea431c7caa4e95aec4648f9d077643",
+      "End": "7fa900fbc6a444de95faba78268da5c0",
+      "Id": "2ae554c7facb4a97bafadb7ecefc64a8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "956a7c8e8fdc43f8a7527fbef06efd03",
+      "End": "8b4a6024a030467ca4a1f39ab3abd67c",
+      "Id": "d419d86db47b4ce3bad37808f69a9b55",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "046aaf56977643598136328f5bddd2d8",
+      "End": "65b802bcfc134655a2e24c22ee508a9e",
+      "Id": "5cfd26a2e28845de800e5a99ba92fce0",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "fea6a8ec06394a9891a22a035046d7e5",
+      "End": "34512f313f62494c8db9ffecb6ae1799",
+      "Id": "19452b46615a47ed9276de2274ba6e94",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "e16f1dbb710649b8be8d1dc00befe994",
+      "End": "53d47b43991443308c9a530eb6e05132",
+      "Id": "83f20c3d608b4a62acf40eb45ca722a5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "cbc78a6f8fb64364862ea84f650d1264",
+      "End": "1f651c96ed6748339656103ecd12f554",
+      "Id": "54be0dbe024f4c52ad9253b6676efd83",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "e3f34c4591154ff09067931d13fe03a8",
+      "End": "7bd2cbaaaed2453894085b7e8f9be991",
+      "Id": "3b58fb95d17c45609a62f140ab7d0f96",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": null,
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.18",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "6.0",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.18.1.5096",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "4bb12beb11a349f8b45b36435ba83580",
+        "Name": "Global Options",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -513.89167268815754,
+        "Y": -978.87296286162928
+      },
+      {
+        "Id": "ee255fbb0851497f9f2881b0fe013164",
+        "Name": "Output Folder (optional)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -40.734736859244094,
+        "Y": -558.05840377408515
+      },
+      {
+        "Id": "5df7aed775d843e3b46457d859c27bfd",
+        "Name": "Template - Enable",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -891.2715646461927,
+        "Y": -377.10666789947811
+      },
+      {
+        "Id": "d3dafb3b985043ff9b730903d081a601",
+        "Name": "Rule Template (not connected)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -583.85863824005219,
+        "Y": -391.18174542786744
+      },
+      {
+        "Id": "940c81ef744c4b98a16f830852234588",
+        "Name": "Enable - CAT Code + TS Parameters",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 348.45688532418535
+      },
+      {
+        "Id": "6615629475fb4582be93c65079106b33",
+        "Name": "Rules - CAT Code + TS Parameters (28)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 348.45688532418535
+      },
+      {
+        "Id": "09fd61746cae4ee1ba122a383ace3b74",
+        "Name": "Enable - Room List",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 1206.9568853241854
+      },
+      {
+        "Id": "523ec478a9d044dd8ce719f9bf14e16a",
+        "Name": "Rule - Room List",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 1206.9568853241854
+      },
+      {
+        "Id": "975406ed0fe5497a82b2ca50c4ea9974",
+        "Name": "Enable - Generic Model",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 1528.9568853241854
+      },
+      {
+        "Id": "9524507457354beabdada708ba114d38",
+        "Name": "Rule - Generic Model",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 1528.9568853241854
+      },
+      {
+        "Id": "59f608fb61a34f1c9c1d5df071e3421a",
+        "Name": "Enable - Family Name",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 1850.9568853241854
+      },
+      {
+        "Id": "d3aed6c446dc42009590b0d251253a4e",
+        "Name": "Rule - Family Name",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 1850.9568853241854
+      },
+      {
+        "Id": "3b2fce1c05a74eedb8420555005ee4ec",
+        "Name": "Enable - In-Place Families",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 2361.4568853241854
+      },
+      {
+        "Id": "5b8ce0d9696b4c16aa18f90aeeccd9b5",
+        "Name": "Rule - In-Place Families",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 2361.4568853241854
+      },
+      {
+        "Id": "945b1ddc36dc4e409ff8882b07bf4084",
+        "Name": "Enable - Mass Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 2683.4568853241854
+      },
+      {
+        "Id": "5518f8b0ac224f01a87d11d9f9ee8486",
+        "Name": "Rule - Mass Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 2683.4568853241854
+      },
+      {
+        "Id": "cb7394f9644f40ecb5db809a1fdbe38d",
+        "Name": "Enable - Phase Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -838.06086343791412,
+        "Y": 3005.4568853241854
+      },
+      {
+        "Id": "1ac69e98a81546f5a04247935a6f812b",
+        "Name": "Rule - Phase Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -588.06086343791412,
+        "Y": 3005.4568853241854
+      },
+      {
+        "Id": "380cda7ea68f4b1fb41078a3af2c66ba",
+        "Name": "Enable - Views With Hidden Model Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -842.928549244089,
+        "Y": 3643.7070967268437
+      },
+      {
+        "Id": "ef62fa0430d8444f97d1547a672025e9",
+        "Name": "Rule - Views With Hidden Model Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -592.928549244089,
+        "Y": 3643.7070967268437
+      },
+      {
+        "Id": "ee9427169dd14efcbffbc9f00a7e28a9",
+        "Name": "Enable - Largest Families",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -842.928549244089,
+        "Y": 3893.2070967268437
+      },
+      {
+        "Id": "56b92ac3b3774c6ab7bdfa9bce9a7472",
+        "Name": "Rule - Largest Families",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -592.928549244089,
+        "Y": 3893.2070967268437
+      },
+      {
+        "Id": "eb8dfacf3f754ad3a40f17b3a7b5db6c",
+        "Name": "Enable - File Size",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -842.928549244089,
+        "Y": 4142.7070967268437
+      },
+      {
+        "Id": "b6553ce20c7e4f9c981e11743249fd87",
+        "Name": "Rule - File Size",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -592.928549244089,
+        "Y": 4142.7070967268437
+      },
+      {
+        "Id": "3ac2fca0463f46c0add4edae84e62864",
+        "Name": "Enable - Link Type",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -842.928549244089,
+        "Y": 4392.2070967268437
+      },
+      {
+        "Id": "63eee1b1e216417bbda39a0650effd49",
+        "Name": "Rule - Link Type",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -592.928549244089,
+        "Y": 4392.2070967268437
+      },
+      {
+        "Id": "368f592e6607409fb989272045f650c9",
+        "Name": "Enable - Project Coordinates",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -825.49909403633046,
+        "Y": 5024.9260225540356
+      },
+      {
+        "Id": "37150e3c5c1649a983574c3fdd3b1cc6",
+        "Name": "Rule - Project Coordinates",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -575.49909403633046,
+        "Y": 5024.9260225540356
+      },
+      {
+        "Id": "6f25b411d3a04bf28a9effd552c1751d",
+        "Name": "Enable - Project Information",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -825.49909403633046,
+        "Y": 5274.4260225540356
+      },
+      {
+        "Id": "7d19623b2df5462485cd59a8bf88e40d",
+        "Name": "Rule - Project Information",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -575.49909403633046,
+        "Y": 5274.4260225540356
+      },
+      {
+        "Id": "51671c29ea3d42ffbb0cddc48ac97fb5",
+        "Name": "Enable - Linked CAD",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 5868.1503602574676
+      },
+      {
+        "Id": "25a61694c5464377a7bf00efffbf5652",
+        "Name": "Rule - Linked CAD",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 5868.1503602574676
+      },
+      {
+        "Id": "8fe5248d7dc949f995662c7798b7c47c",
+        "Name": "Enable - Link Method",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 6117.6503602574676
+      },
+      {
+        "Id": "ed579ff096704c8d8df8e0160fd627d3",
+        "Name": "Rule - Link Method",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 6117.6503602574676
+      },
+      {
+        "Id": "48d77383d6664c91bf532a7c823bb881",
+        "Name": "Enable - Raster Images",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 6367.1503602574676
+      },
+      {
+        "Id": "53c26ccb9e3844f0bc451cad38269908",
+        "Name": "Rule - Raster Images",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 6367.1503602574676
+      },
+      {
+        "Id": "0cb45c7d383c4bb09187508c5a998633",
+        "Name": "Enable - Unused Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 6616.6503602574676
+      },
+      {
+        "Id": "34f1f7a215f3462eb71bf7ac1270f507",
+        "Name": "Rule - Unused Elements",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 6616.6503602574676
+      },
+      {
+        "Id": "8ea90cf5b19040c588b21f53845470cd",
+        "Name": "Enable - Imported SKP",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 6866.1503602574676
+      },
+      {
+        "Id": "40bf2e279c67494bb14f5d63916f0867",
+        "Name": "Rule - Imported SKP",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 6866.1503602574676
+      },
+      {
+        "Id": "b65939e38fab447587fb0235b0d4f065",
+        "Name": "Enable - Worksets",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 7115.6503602574676
+      },
+      {
+        "Id": "558372a45d674357bb59fea48c99ad0b",
+        "Name": "Rule - Worksets",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 7115.6503602574676
+      },
+      {
+        "Id": "cab3543f7ea849aea75d6bf07e281cbb",
+        "Name": "Enable - Design Options",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 7365.1503602574676
+      },
+      {
+        "Id": "3b23a9bad5ef4b17a74e176fdecd03db",
+        "Name": "Rule - Design Options",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 7365.1503602574676
+      },
+      {
+        "Id": "6b6551b1c800449397516d8e20175138",
+        "Name": "Enable - Warning Count",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -822.01329598020493,
+        "Y": 7614.6503602574676
+      },
+      {
+        "Id": "3ca6c1691f464fada1938b7a2c35e35a",
+        "Name": "Rule - Warning Count",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -572.01329598020493,
+        "Y": 7614.6503602574676
+      },
+      {
+        "Id": "65fd4a3427fd4e8c8a2c61064f9b22d7",
+        "Name": "All Rules",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 3157.6832095169307,
+        "Y": 2692.6743010663981
+      },
+      {
+        "Id": "be520aefe7e644a7b5fe6002ef34aedd",
+        "Name": "AA Model Checker (Rules in Dynamo)",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 3432.52709355349,
+        "Y": 2467.8193554699051
+      },
+      {
+        "Id": "217483563ac34cd0bb7d7f988602f3b9",
+        "Name": "Result  [xlsx path, summary, rule messages]",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 3900.0550436889353,
+        "Y": 2464.3590128299329
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "ac3193f4f39d4a27a4ffa5458d47fdd2",
+        "Title": "① Settings",
+        "DescriptionText": "Global options, output folder and a template for new rules. The template is NOT connected to All Rules.",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "4bb12beb11a349f8b45b36435ba83580",
+          "ee255fbb0851497f9f2881b0fe013164",
+          "5df7aed775d843e3b46457d859c27bfd",
+          "d3dafb3b985043ff9b730903d081a601"
+        ],
+        "HasNestedGroups": false,
+        "Left": -901.2715646461927,
+        "Top": -1052.2062961949625,
+        "Width": 1136.0465586247019,
+        "Height": 1163.3578841004285,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": -978.87296286162928,
+        "InitialHeight": 665.0,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFB9F9E1"
+      },
+      {
+        "Id": "724bcd77f07c4e5e8b32cefcacfeeff0",
+        "Title": "② Rules - Elements Checker",
+        "DescriptionText": "Toggle = enable/disable the rule. Edit the Code Block to change the rule.",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "940c81ef744c4b98a16f830852234588",
+          "6615629475fb4582be93c65079106b33",
+          "09fd61746cae4ee1ba122a383ace3b74",
+          "523ec478a9d044dd8ce719f9bf14e16a",
+          "975406ed0fe5497a82b2ca50c4ea9974",
+          "9524507457354beabdada708ba114d38",
+          "59f608fb61a34f1c9c1d5df071e3421a",
+          "d3aed6c446dc42009590b0d251253a4e",
+          "3b2fce1c05a74eedb8420555005ee4ec",
+          "5b8ce0d9696b4c16aa18f90aeeccd9b5",
+          "945b1ddc36dc4e409ff8882b07bf4084",
+          "5518f8b0ac224f01a87d11d9f9ee8486",
+          "cb7394f9644f40ecb5db809a1fdbe38d",
+          "1ac69e98a81546f5a04247935a6f812b"
+        ],
+        "HasNestedGroups": false,
+        "Left": -848.06086343791412,
+        "Top": 275.12355199085204,
+        "Width": 1075.3333333333335,
+        "Height": 3052.666666666667,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 348.45688532418535,
+        "InitialHeight": 2802.0,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "bdac2f0ce39741378f87682a0949a060",
+        "Title": "② Rules - <--Unused-->",
+        "DescriptionText": "Toggle = enable/disable the rule. Edit the Code Block to change the rule.",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "380cda7ea68f4b1fb41078a3af2c66ba",
+          "ef62fa0430d8444f97d1547a672025e9",
+          "ee9427169dd14efcbffbc9f00a7e28a9",
+          "56b92ac3b3774c6ab7bdfa9bce9a7472",
+          "eb8dfacf3f754ad3a40f17b3a7b5db6c",
+          "b6553ce20c7e4f9c981e11743249fd87",
+          "3ac2fca0463f46c0add4edae84e62864",
+          "63eee1b1e216417bbda39a0650effd49"
+        ],
+        "HasNestedGroups": false,
+        "Left": -852.928549244089,
+        "Top": 3570.37376339351,
+        "Width": 1075.3333333333335,
+        "Height": 1209.5000000000005,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 3643.7070967268437,
+        "InitialHeight": 893.5,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "fc08739a663640aa805ffa4557ebc164",
+        "Title": "② Rules - Model File Checker",
+        "DescriptionText": "Toggle = enable/disable the rule. Edit the Code Block to change the rule.",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "368f592e6607409fb989272045f650c9",
+          "37150e3c5c1649a983574c3fdd3b1cc6",
+          "6f25b411d3a04bf28a9effd552c1751d",
+          "7d19623b2df5462485cd59a8bf88e40d"
+        ],
+        "HasNestedGroups": false,
+        "Left": -835.49909403633046,
+        "Top": 4951.5926892207026,
+        "Width": 1075.3333333333335,
+        "Height": 645.16666666666606,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 5024.9260225540356,
+        "InitialHeight": 394.5,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFA4E1FF"
+      },
+      {
+        "Id": "b832adc25ff24806bedc51f8aac60156",
+        "Title": "② Rules - Housekeeping",
+        "DescriptionText": "Toggle = enable/disable the rule. Edit the Code Block to change the rule.",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "51671c29ea3d42ffbb0cddc48ac97fb5",
+          "25a61694c5464377a7bf00efffbf5652",
+          "8fe5248d7dc949f995662c7798b7c47c",
+          "ed579ff096704c8d8df8e0160fd627d3",
+          "48d77383d6664c91bf532a7c823bb881",
+          "53c26ccb9e3844f0bc451cad38269908",
+          "0cb45c7d383c4bb09187508c5a998633",
+          "34f1f7a215f3462eb71bf7ac1270f507",
+          "8ea90cf5b19040c588b21f53845470cd",
+          "40bf2e279c67494bb14f5d63916f0867",
+          "b65939e38fab447587fb0235b0d4f065",
+          "558372a45d674357bb59fea48c99ad0b",
+          "cab3543f7ea849aea75d6bf07e281cbb",
+          "3b23a9bad5ef4b17a74e176fdecd03db",
+          "6b6551b1c800449397516d8e20175138",
+          "3ca6c1691f464fada1938b7a2c35e35a"
+        ],
+        "HasNestedGroups": false,
+        "Left": -832.01329598020493,
+        "Top": 5794.8170269241346,
+        "Width": 1075.3333333333335,
+        "Height": 2124.833333333333,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 5868.1503602574676,
+        "InitialHeight": 1891.5,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "d5ccae9eacdc4c19b3b30630abd69759",
+        "Title": "③ Run",
+        "DescriptionText": "All Rules collects every rule (use + to add inputs). OUT = [xlsx path, summary table, rule validation messages].",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "65fd4a3427fd4e8c8a2c61064f9b22d7",
+          "be520aefe7e644a7b5fe6002ef34aedd",
+          "217483563ac34cd0bb7d7f988602f3b9"
+        ],
+        "HasNestedGroups": false,
+        "Left": 3147.6832095169307,
+        "Top": 2391.0256794965994,
+        "Width": 1339.7051675053376,
+        "Height": 1121.3152882364652,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 2464.3590128299329,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 63.333333333333336,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 930.28069819155439,
+    "Y": 844.217153592859,
+    "Zoom": 0.66311061622986711
+  }
+}
